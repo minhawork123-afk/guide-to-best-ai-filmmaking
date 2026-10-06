@@ -17,6 +17,16 @@ It covers two content types that use the same pipeline:
 
 ---
 
+## Launch Film
+
+A 30-second film about this system: why AI filmmaking looks so complex, the 7-stage workflow that fixes it, and real results made with it.
+
+▶️ [Watch the launch film](https://minhawork123-afk.github.io/guide-to-best-ai-filmmaking/tools/launch-film/)
+
+Source: [`/tools/launch-film/`](./tools/launch-film/) — a single HTML file with no dependencies. The animation, particles and Web Audio soundtrack are all generated in your browser. If your browser blocks autoplay audio, tap once for sound.
+
+---
+
 ## Proof of Concept
 
 These were made entirely with this workflow.
@@ -117,8 +127,10 @@ guide-to-best-ai-filmmaking/
 │       └── assets/                  ← character sheet, location plates
 │
 ├── tools/
-│   └── character-sheet-builder/
-│       └── index.html               ← Character Sheet Builder web app
+│   ├── character-sheet-builder/
+│   │   └── index.html               ← Character Sheet Builder web app
+│   └── launch-film/
+│       └── index.html               ← 30-second launch film
 │
 └── templates/
     ├── film-brief-template.md       ← blank brief for cinematic films
