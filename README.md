@@ -85,6 +85,19 @@ Full documentation → [`GUIDE.md`](./GUIDE.md)
 
 ---
 
+## Tools
+
+### Character Sheet Builder
+Describe your character in a simple form and get the two Stage 3 prompts for Nano Banana Pro, ready to copy-paste:
+- **Portrait prompt (4:5)** — generate this first and get the face right
+- **Three-panel character sheet prompt (16:9)** — chest-up portrait, deliberately headless full-length front view, full-length rear view with head visible
+
+▶️ [Open the Character Sheet Builder](https://minhawork123-afk.github.io/guide-to-best-ai-filmmaking/tools/character-sheet-builder/)
+
+Source: [`/tools/character-sheet-builder/`](./tools/character-sheet-builder/) — a single HTML file, nothing to install, runs entirely in your browser.
+
+---
+
 ## Repo Structure
 
 ```
@@ -102,6 +115,10 @@ guide-to-best-ai-filmmaking/
 │       ├── prompt-location-kitchen.md
 │       ├── prompt-location-gym.md
 │       └── assets/                  ← character sheet, location plates
+│
+├── tools/
+│   └── character-sheet-builder/
+│       └── index.html               ← Character Sheet Builder web app
 │
 └── templates/
     ├── film-brief-template.md       ← blank brief for cinematic films
