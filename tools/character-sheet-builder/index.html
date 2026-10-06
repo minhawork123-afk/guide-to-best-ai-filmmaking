@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Character Sheet Builder — Guide to Best AI Filmmaking</title>
+<meta name="description" content="Build a Nano Banana Pro portrait prompt (4:5) and a three-panel character sheet prompt (16:9) using the Guide to Best AI Filmmaking system.">
+<meta name="theme-color" content="#0f0f11">
+<meta property="og:title" content="Character Sheet Builder — Guide to Best AI Filmmaking">
+<meta property="og:description" content="Describe a character once. Get a 4:5 portrait prompt and a 16:9 three-panel character sheet prompt for Nano Banana Pro, ready for Seedance 2.5.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141416'/%3E%3Crect x='6' y='9' width='6' height='14' rx='1.5' fill='%23c8a35b'/%3E%3Crect x='13' y='9' width='6' height='14' rx='1.5' fill='%23c8a35b' opacity='.5'/%3E%3Crect x='20' y='9' width='6' height='14' rx='1.5' fill='%23c8a35b'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0f0f11;
+    --bg-raise: #141417;
+    --panel: #19191d;
+    --panel-2: #1f1f24;
+    --field: #111114;
+    --line: #29292f;
+    --line-2: #393941;
+    --text: #ece8df;
+    --text-2: #b8b2a6;
+    --muted: #7f7a70;
+    --gold: #c8a35b;
+    --gold-hi: #e6ca8f;
+    --gold-lo: #8c703c;
+    --gold-wash: rgba(200, 163, 91, 0.11);
+    --warn: #e39a74;
+    --warn-wash: rgba(227, 154, 116, 0.12);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --radius: 16px;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(1100px 520px at 78% -8%, rgba(200, 163, 91, 0.09), transparent 62%),
+      radial-gradient(800px 480px at -8% 12%, rgba(255, 255, 255, 0.035), transparent 60%),
+      var(--bg);
+    background-attachment: fixed;
+  }
+  /* gold hairline across the top of the viewport */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold) 28%, var(--gold-hi) 50%, var(--gold) 72%, transparent);
+    opacity: 0.55;
+    z-index: 60;
+    pointer-events: none;
+  }
+  /* film grain */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 59;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  a { color: var(--gold-hi); text-decoration: none; }
+  a:hover { color: #f3dcab; }
+  :focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; border-radius: 6px; }
+  code { white-space: nowrap; font-family: var(--mono); font-size: 0.92em; color: var(--gold-hi); background: var(--gold-wash); padding: 1px 6px; border-radius: 5px; }
+
+  .skip {
+    position: absolute; left: 16px; top: -60px; z-index: 70;
+    background: var(--gold); color: #17130b; padding: 10px 14px; border-radius: 10px; font-weight: 600;
+  }
+  .skip:focus { top: 14px; }
+  .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Masthead ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 22px 0; border-bottom: 1px solid var(--line);
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--text-2); font-size: 11.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .brand svg { flex: none; }
+  .brand:hover { color: var(--text); }
+  .gh-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line-2); border-radius: 999px; padding: 8px 14px;
+    color: var(--text-2); font-size: 13px; font-weight: 500;
+    transition: border-color .2s, color .2s;
+  }
+  .gh-link:hover { border-color: var(--gold-lo); color: var(--gold-hi); }
+
+  .hero { padding: 60px 0 44px; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 14px; margin: 0 0 22px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  }
+  .eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--gold); opacity: .7; }
+  h1 {
+    margin: 0; font-family: var(--serif); font-weight: 500;
+    font-size: clamp(36px, 5.4vw, 64px); line-height: 1.02; letter-spacing: -0.012em;
+  }
+  h1 .h1-sub {
+    display: block; margin-top: 14px;
+    font-size: 0.4em; font-style: italic; letter-spacing: 0.01em; color: var(--gold);
+  }
+  .lead { max-width: 64ch; margin: 22px 0 0; color: var(--text-2); font-size: 16.5px; line-height: 1.65; }
+  .lead strong { color: var(--text); font-weight: 600; }
+
+  .steps {
+    display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin: 30px 0 0; padding: 0;
+  }
+  .steps li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px 10px 12px; border: 1px solid var(--line); border-radius: 12px;
+    background: rgba(25, 25, 29, 0.7); font-size: 13.5px; color: var(--text-2);
+  }
+  .steps b { font-family: var(--mono); font-weight: 500; font-size: 11px; color: var(--gold); letter-spacing: .08em; }
+  .steps em { font-style: normal; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  .steps .arrow { color: var(--gold-lo); border: 0; background: none; padding: 0 2px; }
+
+  /* ---------- Layout ---------- */
+  .layout {
+    display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+    gap: 28px; align-items: start; padding-bottom: 72px;
+  }
+
+  /* ---------- Form ---------- */
+  .form { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .section {
+    margin: 0; min-width: 0;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: linear-gradient(180deg, var(--panel), var(--bg-raise));
+    padding: 22px 24px 26px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.025) inset, 0 20px 40px -30px rgba(0,0,0,.8);
+  }
+  .section-head {
+    display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px;
+    margin: 0 0 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line);
+  }
+  .section-num { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--gold); }
+  .section-title { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 21px; letter-spacing: .005em; }
+  .section-hint { margin-left: auto; color: var(--muted); font-size: 12.5px; font-style: italic; font-family: var(--serif); }
+
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 22px; }
+  .span-2 { grid-column: 1 / -1; }
+
+  .field { margin: 0; padding: 0; border: 0; min-width: 0; }
+  .label, .field > legend {
+    display: flex; align-items: center; gap: 8px; padding: 0;
+    margin: 0 0 9px; font-size: 11px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--text-2);
+  }
+  .tag {
+    font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: none;
+    color: var(--muted); border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 7px;
+  }
+  .help { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+  .input {
+    width: 100%; display: block;
+    background: var(--field); color: var(--text);
+    border: 1px solid var(--line-2); border-radius: 11px;
+    padding: 11px 13px; font: inherit; font-size: 15px; line-height: 1.35;
+    transition: border-color .18s, box-shadow .18s, background .18s;
+  }
+  .input::placeholder { color: #5f5b54; }
+  .input:hover { border-color: #4a4a53; }
+  .input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-wash); background: #131316; }
+  .input::-webkit-calendar-picker-indicator { opacity: .35; }
+
+  .trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .sub { display: block; margin: 0 0 6px; font-size: 11.5px; color: var(--muted); }
+
+  /* pill radios */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { position: relative; display: inline-flex; }
+  .pill input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .pill span {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border: 1px solid var(--line-2); border-radius: 999px;
+    background: var(--field); color: var(--text-2); font-size: 13.5px; line-height: 1.2;
+    cursor: pointer; user-select: none; -webkit-user-select: none;
+    transition: border-color .16s, background .16s, color .16s;
+  }
+  .pill span::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--line-2); transition: background .16s, box-shadow .16s;
+  }
+  .pill:hover span { border-color: var(--gold-lo); color: var(--text); }
+  .pill input:checked + span {
+    border-color: var(--gold); background: var(--gold-wash); color: var(--gold-hi);
+  }
+  .pill input:checked + span::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(200,163,91,.18); }
+  .pill input:focus-visible + span { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+  .field:disabled .pill span { opacity: .35; cursor: not-allowed; }
+  .field:disabled .pill:hover span { border-color: var(--line-2); color: var(--text-2); }
+
+  .detail { margin-top: -4px; }
+
+  .camera-sees {
+    margin: 12px 0 0; padding: 11px 14px; border-left: 2px solid var(--gold-lo);
+    background: rgba(200,163,91,.05); border-radius: 0 10px 10px 0;
+    font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--text-2); line-height: 1.5;
+  }
+  .camera-sees b { font-family: var(--mono); font-style: normal; font-weight: 500; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-right: 8px; }
+
+  .check { display: flex; align-items: flex-start; gap: 11px; margin-top: 14px; cursor: pointer; color: var(--text-2); font-size: 13.5px; }
+  .check input {
+    appearance: none; -webkit-appearance: none; flex: none; margin: 1px 0 0;
+    width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--line-2); background: var(--field);
+    display: grid; place-content: center; cursor: pointer; transition: background .16s, border-color .16s;
+  }
+  .check input::after {
+    content: ""; width: 9px; height: 5px; border: 2px solid #17130b; border-top: 0; border-right: 0;
+    transform: rotate(-45deg) translate(1px, -1px); opacity: 0;
+  }
+  .check input:checked { background: var(--gold); border-color: var(--gold); }
+  .check input:checked::after { opacity: 1; }
+  .check small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+  /* missing-field state, only after a generate */
+  .field.is-missing > .label, .field.is-missing > legend { color: var(--warn); }
+  .field.is-missing > .label::after, .field.is-missing > legend::after {
+    content: "needed"; font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: none;
+    color: var(--warn); border: 1px solid rgba(227,154,116,.45); border-radius: 999px; padding: 1px 7px;
+  }
+  .field.is-missing .input { border-color: rgba(227,154,116,.55); }
+  .field.is-missing .pill span { border-color: rgba(227,154,116,.4); }
+
+  /* action bar */
+  .actions {
+    position: sticky; bottom: 16px; z-index: 20;
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px;
+    border: 1px solid var(--line); border-radius: 18px;
+    background: rgba(20, 20, 23, 0.86);
+    -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: 0 18px 40px -18px rgba(0,0,0,.9);
+  }
+  .btn {
+    appearance: none; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 13px 18px; border-radius: 12px; border: 1px solid var(--line-2);
+    background: transparent; color: var(--text); font: 600 14px/1 var(--sans); letter-spacing: .01em;
+    cursor: pointer; white-space: nowrap; transition: border-color .18s, color .18s, background .18s, filter .18s, transform .08s;
+  }
+  .btn:hover { border-color: var(--gold-lo); color: var(--gold-hi); }
+  .btn:active { transform: translateY(1px); }
+  .btn svg { flex: none; }
+  .btn-primary {
+    flex: 1 1 220px; font-size: 15px; letter-spacing: .02em;
+    background: linear-gradient(180deg, #ddbb7b 0%, #b98f47 100%); border-color: #e8cb8f; color: #17130b;
+    box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 12px 30px -12px rgba(200,163,91,.6);
+  }
+  .btn-primary:hover { color: #17130b; border-color: #f0d7a3; filter: brightness(1.06); }
+  .btn-ghost { color: var(--text-2); }
+  .btn-ghost.is-armed { border-color: var(--warn); color: var(--warn); }
+  .sm { display: none; }
+
+  /* ---------- Output ---------- */
+  .output {
+    position: sticky; top: 20px; min-width: 0;
+    max-height: calc(100vh - 40px); overflow-y: auto; overscroll-behavior: contain;
+    padding: 0 6px 4px 0; margin-right: -6px;
+    scrollbar-width: thin; scrollbar-color: #3a3a42 transparent;
+  }
+  .output::-webkit-scrollbar { width: 8px; }
+  .output::-webkit-scrollbar-thumb { background: #33333a; border-radius: 8px; }
+
+  .empty {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding: 44px 32px 40px; border: 1px dashed var(--line-2); border-radius: var(--radius);
+    background: rgba(20,20,23,.5);
+  }
+  .empty .panels { width: min(100%, 420px); margin: 0 0 26px; opacity: .85; }
+  .empty h2 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 24px; }
+  .empty p { max-width: 42ch; margin: 10px 0 22px; color: var(--text-2); }
+
+  .results { display: flex; flex-direction: column; gap: 18px; }
+
+  .status {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 12px 14px 12px 16px; border-radius: 13px; border: 1px solid; font-size: 13.5px;
+  }
+  .status.ok { border-color: rgba(200,163,91,.4); background: var(--gold-wash); color: var(--gold-hi); }
+  .status.warn { border-color: rgba(227,154,116,.4); background: var(--warn-wash); color: #f1bc9f; }
+  .status .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+  .status .grow { flex: 1 1 200px; }
+  .status button {
+    appearance: none; border: 1px solid currentColor; background: transparent; color: inherit;
+    border-radius: 999px; padding: 6px 12px; font: 600 12px/1 var(--sans); cursor: pointer;
+  }
+
+  .out-card {
+    border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 24px 50px -32px rgba(0,0,0,.9);
+  }
+  .out-head {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+    padding: 18px 18px 16px 20px; border-bottom: 1px solid var(--line);
+  }
+  .out-kicker { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+  .out-title { margin: 6px 0 10px; font-family: var(--serif); font-weight: 500; font-size: 21px; line-height: 1.2; }
+  .out-title .who { color: var(--muted); font-style: italic; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--text-2);
+    border: 1px solid var(--line-2); border-radius: 6px; padding: 3px 8px; background: rgba(0,0,0,.2);
+  }
+  .chip.gold { color: var(--gold-hi); border-color: var(--gold-lo); background: var(--gold-wash); }
+
+  .copy {
+    flex: none; display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 14px; border-radius: 11px; border: 1px solid var(--gold-lo);
+    background: var(--gold-wash); color: var(--gold-hi); font: 600 13px/1 var(--sans); cursor: pointer;
+    transition: background .18s, border-color .18s, color .18s;
+  }
+  .copy:hover { background: rgba(200,163,91,.2); border-color: var(--gold); }
+  .copy.done { background: var(--gold); border-color: var(--gold); color: #17130b; }
+
+  .out-note { margin: 0; padding: 14px 20px 0; font-size: 13px; color: var(--text-2); line-height: 1.55; }
+
+  .prompt {
+    margin: 14px 12px 12px; padding: 16px 18px;
+    background: #0d0d0f; border: 1px solid #222227; border-radius: 12px;
+    font-family: var(--mono); font-size: 12.75px; line-height: 1.72; color: #d9d4c8;
+    white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2;
+  }
+  .prompt .k { color: var(--gold); font-weight: 600; }
+  .prompt mark {
+    background: var(--warn-wash); color: #f3b896; border-radius: 4px; padding: 0 3px;
+    box-shadow: inset 0 -1px 0 rgba(227,154,116,.55);
+  }
+
+  /* three-panel schematic */
+  .panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .panel-fig {
+    margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .panel-frame {
+    width: 100%; aspect-ratio: 16 / 27; display: grid; place-items: end center;
+    background: linear-gradient(180deg, #3d3d43, #34343a); border-radius: 6px; overflow: hidden;
+  }
+  .out-card .panels { padding: 16px 20px 0; }
+  .out-card .panel-frame { aspect-ratio: 16 / 13; place-items: end center; }
+  .out-card .panel-frame svg { width: auto; height: 90%; max-width: 92%; }
+  .panel-frame svg { width: 78%; height: auto; display: block; }
+  .panel-fig figcaption { text-align: center; font-size: 11px; line-height: 1.35; color: var(--muted); }
+  .panel-fig figcaption b { display: block; font-family: var(--mono); font-weight: 500; font-size: 10px; letter-spacing: .16em; color: var(--gold); }
+  .fig { fill: #56565e; }
+  .fig-cut { fill: none; stroke: var(--gold); stroke-width: 1; stroke-dasharray: 2.4 2.2; }
+
+  .why {
+    margin: 14px 20px 0; padding: 12px 14px; border-left: 2px solid var(--gold);
+    background: rgba(200,163,91,.06); border-radius: 0 10px 10px 0; font-size: 13px; color: var(--text-2);
+  }
+  .why b { color: var(--gold-hi); font-weight: 600; }
+
+  .next {
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 20px;
+    background: rgba(20,20,23,.6);
+  }
+  .next h3 { margin: 0 0 12px; font-family: var(--mono); font-weight: 500; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+  .next ol { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
+  .next li { counter-increment: s; display: grid; grid-template-columns: 26px 1fr; gap: 6px; font-size: 13.5px; color: var(--text-2); line-height: 1.5; }
+  .next li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 11px; color: var(--gold-lo); padding-top: 2px; }
+  .next li strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- Footer ---------- */
+  .site-foot { border-top: 1px solid var(--line); padding: 36px 0 48px; }
+  .foot-inner { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px 48px; align-items: start; }
+  .foot-brand { margin: 0 0 8px; font-family: var(--serif); font-size: 19px; color: var(--text); }
+  .foot-copy { margin: 0; color: var(--muted); font-size: 13.5px; max-width: 58ch; }
+  .foot-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .foot-links a { display: inline-flex; align-items: center; gap: 9px; font-size: 14px; }
+  .foot-links .repo { font-weight: 600; }
+  .fine { grid-column: 1 / -1; margin: 8px 0 0; color: #5f5b54; font-size: 12px; letter-spacing: .04em; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .output { position: static; max-height: none; overflow: visible; padding: 0; margin: 0; scroll-margin-top: 16px; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    .topbar { padding: 16px 0; }
+    .brand { letter-spacing: .12em; font-size: 10.5px; }
+    .gh-link .gh-text { display: none; }
+    .hero { padding: 40px 0 30px; }
+    .lead { font-size: 15.5px; }
+    .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 26px; }
+    .steps li { flex-direction: column; align-items: flex-start; gap: 3px; padding: 10px 11px; font-size: 13px; line-height: 1.3; }
+    .steps .arrow { display: none; }
+    .section { padding: 18px 16px 22px; border-radius: 14px; }
+    .section-hint { margin-left: 0; flex-basis: 100%; }
+    .grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .trio { grid-template-columns: minmax(0, 1fr); }
+    .input { font-size: 16px; }
+    .actions { bottom: 10px; padding: 10px; border-radius: 16px; }
+    .actions { gap: 8px; }
+    .btn { padding: 13px 13px; font-size: 14px; }
+    .btn-primary { flex: 1 1 auto; font-size: 15px; }
+    .btn-primary svg { display: none; }
+    .btn-ghost { flex: 0 0 auto; }
+    .lg { display: none; }
+    .sm { display: inline; }
+    .out-head { flex-direction: column; align-items: stretch; padding: 16px; }
+    .copy { justify-content: center; padding: 12px 14px; }
+    .out-note { padding: 12px 16px 0; }
+    .prompt { margin: 12px 8px 8px; padding: 14px; font-size: 12.5px; }
+    .out-card .panels { padding: 14px 16px 0; }
+    .why { margin: 12px 16px 0; }
+    .empty { padding: 32px 18px; }
+    .foot-inner { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 380px) {
+    .btn-primary { flex: 1 1 100%; }
+    .btn-ghost { flex: 1 1 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#form">Skip to the builder</a>
+
+<!-- Reusable three-panel schematic (cloned into the page by script) -->
+<template id="panels-tpl">
+  <div class="panels" aria-hidden="true">
+    <figure class="panel-fig">
+      <div class="panel-frame">
+        <svg viewBox="0 0 60 70"><ellipse class="fig" cx="30" cy="29" rx="11" ry="13.5"/><rect class="fig" x="25.5" y="40" width="9" height="9"/><path class="fig" d="M5 70 C6 55 15 48 30 48 C45 48 54 55 55 70 Z"/></svg>
+      </div>
+      <figcaption><b>LEFT</b>Chest-up portrait</figcaption>
+    </figure>
+    <figure class="panel-fig">
+      <div class="panel-frame">
+        <svg viewBox="0 0 60 92"><circle class="fig-cut" cx="30" cy="8.5" r="6.2"/><line class="fig-cut" x1="10" y1="17.4" x2="50" y2="17.4"/><path class="fig" d="M19.5 22 C19.5 19.4 23 18.4 30 18.4 C37 18.4 40.5 19.4 40.5 22 L41.6 52 L18.4 52 Z"/><path class="fig" d="M18.6 21.6 L14 51 L17.4 51.6 L21.2 26 Z M41.4 21.6 L46 51 L42.6 51.6 L38.8 26 Z"/><path class="fig" d="M19.6 51 L29.4 51 L28.6 88 L22.2 88 Z M30.6 51 L40.4 51 L37.8 88 L31.4 88 Z"/></svg>
+      </div>
+      <figcaption><b>CENTRE</b>Headless — deliberate</figcaption>
+    </figure>
+    <figure class="panel-fig">
+      <div class="panel-frame">
+        <svg viewBox="0 0 60 92"><circle class="fig" cx="30" cy="9.5" r="6.4"/><rect class="fig" x="27.6" y="14.5" width="4.8" height="4.6"/><path class="fig" d="M19.5 22 C19.5 19.4 23 18.4 30 18.4 C37 18.4 40.5 19.4 40.5 22 L41.6 52 L18.4 52 Z"/><path class="fig" d="M18.6 21.6 L14 51 L17.4 51.6 L21.2 26 Z M41.4 21.6 L46 51 L42.6 51.6 L38.8 26 Z"/><path class="fig" d="M19.6 51 L29.4 51 L28.6 88 L22.2 88 Z M30.6 51 L40.4 51 L37.8 88 L31.4 88 Z"/></svg>
+      </div>
+      <figcaption><b>RIGHT</b>Rear view, head visible</figcaption>
+    </figure>
+  </div>
+</template>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="topbar">
+      <a class="brand" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking">
+        <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="none" stroke="#c8a35b" stroke-opacity=".5"/><rect x="7" y="9" width="5" height="14" rx="1.2" fill="#c8a35b"/><rect x="13.5" y="9" width="5" height="14" rx="1.2" fill="#c8a35b" opacity=".45"/><rect x="20" y="9" width="5" height="14" rx="1.2" fill="#c8a35b"/></svg>
+        Guide to Best AI Filmmaking
+      </a>
+      <a class="gh-link" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking" aria-label="View the repository on GitHub">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span class="gh-text">View on GitHub</span>
+      </a>
+    </div>
+
+    <div class="hero">
+      <p class="eyebrow">Stage 3 · Reference image prompts</p>
+      <h1>Character Sheet Builder <span class="h1-sub">— Guide to Best AI Filmmaking</span></h1>
+      <p class="lead">Describe your character once. Get the two <strong>Nano Banana Pro</strong> prompts the guide uses to lock identity: a 4:5 portrait to get the face right, then a 16:9 three-panel sheet that becomes <strong>@Image1</strong> in every Seedance 2.5 block.</p>
+      <ol class="steps" aria-label="Workflow">
+        <li><b>01</b> Portrait <em>4:5</em></li>
+        <li class="arrow" aria-hidden="true">→</li>
+        <li><b>02</b> Three-panel sheet <em>16:9</em></li>
+        <li class="arrow" aria-hidden="true">→</li>
+        <li><b>03</b> Seedance 2.5 <em>@Image1</em></li>
+      </ol>
+    </div>
+  </header>
+
+  <main class="layout">
+    <form id="form" class="form" autocomplete="off" novalidate>
+
+      <!-- 01 IDENTITY -->
+      <section class="section" aria-labelledby="s1">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2 class="section-title" id="s1">Identity</h2>
+          <span class="section-hint">Who the camera is looking at</span>
+        </div>
+        <div class="grid">
+          <div class="field" data-field="name">
+            <label class="label" for="name">Character name <span class="tag">optional</span></label>
+            <input class="input" id="name" name="name" type="text" placeholder="e.g. Tess" maxlength="40">
+          </div>
+          <div class="field" data-field="age">
+            <label class="label" for="age">Age</label>
+            <input class="input" id="age" name="age" type="text" placeholder="e.g. 28 — or “late 30s”" maxlength="24">
+          </div>
+          <fieldset class="field span-2" data-field="gender">
+            <legend>Gender</legend>
+            <div class="pills" data-name="gender"></div>
+          </fieldset>
+          <div class="span-2">
+            <label class="check">
+              <input type="checkbox" name="nameLabel" id="nameLabel">
+              <span>Print a name + age label on the sheet
+                <small>Like the Tess example in the repo. Off by default — the template asks for no text. The name never goes into the face description, so it can't pull the face toward a real person.</small>
+              </span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 FACE -->
+      <section class="section" aria-labelledby="s2">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2 class="section-title" id="s2">Face</h2>
+          <span class="section-hint">The more ordinary and precise, the more real</span>
+        </div>
+        <div class="grid">
+          <div class="field" data-field="skinTone">
+            <label class="label" for="skinTone">Skin tone</label>
+            <input class="input" id="skinTone" name="skinTone" type="text" list="dl-skin" placeholder="e.g. light olive">
+          </div>
+          <fieldset class="field" data-field="undertone">
+            <legend>Undertone</legend>
+            <div class="pills" data-name="undertone"></div>
+          </fieldset>
+          <fieldset class="field span-2" data-field="faceShape">
+            <legend>Face shape</legend>
+            <div class="pills" data-name="faceShape"></div>
+          </fieldset>
+          <div class="field" data-field="eyeColor">
+            <label class="label" for="eyeColor">Eye color</label>
+            <input class="input" id="eyeColor" name="eyeColor" type="text" list="dl-eyes" placeholder="e.g. dark brown">
+          </div>
+          <fieldset class="field" data-field="eyeShape">
+            <legend>Eye shape</legend>
+            <div class="pills" data-name="eyeShape"></div>
+          </fieldset>
+          <fieldset class="field" data-field="nose">
+            <legend>Nose</legend>
+            <div class="pills" data-name="nose"></div>
+          </fieldset>
+          <fieldset class="field" data-field="lips">
+            <legend>Lips</legend>
+            <div class="pills" data-name="lips"></div>
+          </fieldset>
+          <fieldset class="field span-2" data-field="brows">
+            <legend>Brow style</legend>
+            <div class="pills" data-name="brows"></div>
+          </fieldset>
+          <fieldset class="field span-2" data-field="feature">
+            <legend>Distinctive feature</legend>
+            <div class="pills" data-name="feature"></div>
+          </fieldset>
+          <div class="field span-2 detail" data-field="featureDetail" data-show-when="feature:scar,tattoo,freckles">
+            <label class="label" for="featureDetail">Describe it — exactly where</label>
+            <input class="input" id="featureDetail" name="featureDetail" type="text" placeholder="e.g. thin pale scar through the left eyebrow">
+            <p class="help">Say which side. “left” and “right” are capitalised for you, as the guide recommends.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 HAIR -->
+      <section class="section" aria-labelledby="s3">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2 class="section-title" id="s3">Hair</h2>
+          <span class="section-hint">Front and back, both get described</span>
+        </div>
+        <div class="grid">
+          <div class="field" data-field="hairColor">
+            <label class="label" for="hairColor">Color</label>
+            <input class="input" id="hairColor" name="hairColor" type="text" list="dl-hair" placeholder="e.g. dark brown">
+          </div>
+          <fieldset class="field" data-field="hairLength">
+            <legend>Length</legend>
+            <div class="pills" data-name="hairLength"></div>
+          </fieldset>
+          <fieldset class="field" data-field="hairTexture">
+            <legend>Texture</legend>
+            <div class="pills" data-name="hairTexture"></div>
+          </fieldset>
+          <fieldset class="field" data-field="hairStyle">
+            <legend>Style</legend>
+            <div class="pills" data-name="hairStyle"></div>
+          </fieldset>
+          <fieldset class="field span-2" data-field="hairCondition">
+            <legend>Condition</legend>
+            <div class="pills" data-name="hairCondition"></div>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- 04 BUILD -->
+      <section class="section" aria-labelledby="s4">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2 class="section-title" id="s4">Build</h2>
+          <span class="section-hint">Shapes the two full-length panels</span>
+        </div>
+        <div class="grid">
+          <fieldset class="field" data-field="height">
+            <legend>Height</legend>
+            <div class="pills" data-name="height"></div>
+          </fieldset>
+          <fieldset class="field" data-field="build">
+            <legend>Build</legend>
+            <div class="pills" data-name="build"></div>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- 05 WARDROBE -->
+      <section class="section" aria-labelledby="s5">
+        <div class="section-head">
+          <span class="section-num">05</span>
+          <h2 class="section-title" id="s5">Wardrobe</h2>
+          <span class="section-hint">Name the fabric and color, head to toe</span>
+        </div>
+        <div class="grid">
+          <fieldset class="field span-2" data-field="top">
+            <legend>Top garment</legend>
+            <div class="trio">
+              <label><span class="sub">Color</span><input class="input" name="topColor" type="text" placeholder="forest green"></label>
+              <label><span class="sub">Fabric</span><input class="input" name="topFabric" type="text" placeholder="cotton jersey"></label>
+              <label><span class="sub">Style</span><input class="input" name="topStyle" type="text" placeholder="fitted crew-neck t-shirt"></label>
+            </div>
+          </fieldset>
+          <div class="field span-2" data-field="bottom">
+            <label class="label" for="bottom">Bottom garment</label>
+            <input class="input" id="bottom" name="bottom" type="text" placeholder="e.g. black high-waisted leggings in matte stretch fabric">
+          </div>
+          <div class="field span-2" data-field="footwear">
+            <label class="label" for="footwear">Footwear</label>
+            <input class="input" id="footwear" name="footwear" type="text" placeholder="e.g. white low-top trainers with white rubber soles">
+          </div>
+          <fieldset class="field span-2" data-field="wardrobeCondition">
+            <legend>Condition</legend>
+            <div class="pills" data-name="wardrobeCondition"></div>
+          </fieldset>
+          <div class="field span-2 detail" data-field="wardrobeDetail" data-show-when="wardrobeCondition:dirty,wet,torn">
+            <label class="label" for="wardrobeDetail">Exactly where <span class="tag">optional</span></label>
+            <input class="input" id="wardrobeDetail" name="wardrobeDetail" type="text" placeholder="e.g. ripped at the right knee, mud on both cuffs">
+          </div>
+          <div class="field span-2" data-field="item">
+            <label class="label" for="item">Distinguishing item <span class="tag">optional</span></label>
+            <input class="input" id="item" name="item" type="text" placeholder="e.g. small gold hoops in both ears, fine-line rose tattoo on the inside of the left forearm">
+            <p class="help">Tattoo location, jewelry, glasses. Leave empty and the prompt will rule them out.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 EXPRESSION & CONDITION -->
+      <section class="section" aria-labelledby="s6">
+        <div class="section-head">
+          <span class="section-num">06</span>
+          <h2 class="section-title" id="s6">Expression &amp; Condition</h2>
+          <span class="section-hint">What a camera sees, never a mood</span>
+        </div>
+        <div class="grid">
+          <fieldset class="field span-2" data-field="expression">
+            <legend>Expression</legend>
+            <div class="pills" data-name="expression"></div>
+            <p class="camera-sees" id="exprPreview" hidden></p>
+          </fieldset>
+          <fieldset class="field span-2" data-field="skinCondition">
+            <legend>Skin condition</legend>
+            <div class="pills" data-name="skinCondition"></div>
+          </fieldset>
+          <div class="field span-2 detail" data-field="skinDetail" data-show-when="skinCondition:wet,muddy,bloody">
+            <label class="label" for="skinDetail">Exactly where</label>
+            <input class="input" id="skinDetail" name="skinDetail" type="text" placeholder="e.g. left cheekbone, jaw and both forearms">
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" id="generate" title="Ctrl / ⌘ + Enter">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+          Generate Prompt
+        </button>
+        <button class="btn btn-ghost" type="button" id="loadExample"><span class="lg">Load Tess example</span><span class="sm">Example</span></button>
+        <button class="btn btn-ghost" type="button" id="reset">Reset</button>
+      </div>
+
+      <datalist id="dl-skin">
+        <option value="porcelain"><option value="fair"><option value="light"><option value="light olive">
+        <option value="medium"><option value="medium olive"><option value="tan"><option value="golden brown">
+        <option value="medium brown"><option value="deep brown"><option value="dark brown"><option value="deep ebony">
+      </datalist>
+      <datalist id="dl-eyes">
+        <option value="dark brown"><option value="light brown"><option value="amber"><option value="hazel">
+        <option value="green"><option value="grey-green"><option value="blue"><option value="grey-blue">
+        <option value="grey"><option value="near-black">
+      </datalist>
+      <datalist id="dl-hair">
+        <option value="jet black"><option value="soft black"><option value="dark brown"><option value="chestnut brown">
+        <option value="light brown"><option value="auburn"><option value="copper red"><option value="strawberry blonde">
+        <option value="dirty blonde"><option value="golden blonde"><option value="ash blonde"><option value="platinum blonde">
+        <option value="salt-and-pepper grey"><option value="silver grey"><option value="white">
+      </datalist>
+    </form>
+
+    <aside class="output" id="output" aria-labelledby="out-h">
+      <h2 class="visually-hidden" id="out-h">Generated prompts</h2>
+
+      <div class="empty" id="empty">
+        <div data-panels></div>
+        <h2>Your prompts appear here</h2>
+        <p>Fill in the character on the left and press <b>Generate Prompt</b>. Or load Tess, the worked example from the repo, to see the full system.</p>
+        <button class="btn" type="button" id="loadExample2">Load Tess example</button>
+      </div>
+
+      <div class="results" id="results" hidden>
+        <div class="status" id="status" role="status"></div>
+
+        <article class="out-card" aria-labelledby="o1">
+          <header class="out-head">
+            <div>
+              <span class="out-kicker">Output 1 · Generate first</span>
+              <h3 class="out-title" id="o1">Portrait Prompt <span class="who" data-who></span></h3>
+              <div class="chips"><span class="chip">Nano Banana Pro</span><span class="chip gold">4:5</span><span class="chip" id="wc-portrait"></span></div>
+            </div>
+            <button class="copy" type="button" data-copy="portrait" aria-label="Copy portrait prompt">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </header>
+          <p class="out-note">Get the face exactly right here before you build the sheet. Save the approved image as <code data-file="portrait"></code>.</p>
+          <pre class="prompt" id="portrait" tabindex="0" aria-label="Portrait prompt"></pre>
+        </article>
+
+        <article class="out-card" aria-labelledby="o2">
+          <header class="out-head">
+            <div>
+              <span class="out-kicker">Output 2 · Attach the approved portrait</span>
+              <h3 class="out-title" id="o2">Three-Panel Character Sheet <span class="who" data-who></span></h3>
+              <div class="chips"><span class="chip">Nano Banana Pro</span><span class="chip gold">16:9</span><span class="chip" id="wc-sheet"></span></div>
+            </div>
+            <button class="copy" type="button" data-copy="sheet" aria-label="Copy character sheet prompt">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </header>
+          <div data-panels></div>
+          <p class="why"><b>Why is the centre panel headless?</b> It leaves exactly one face on the sheet. If two full faces appear at different scales, Seedance averages them into a blurred, unstable identity. One face, used twice, holds the identity steady across blocks.</p>
+          <p class="out-note">Attach the approved portrait as a reference image, then generate. Save as <code data-file="sheet"></code>. It becomes <code>@Image1</code> in every Seedance 2.5 block.</p>
+          <pre class="prompt" id="sheet" tabindex="0" aria-label="Three-panel character sheet prompt"></pre>
+        </article>
+
+        <section class="next" aria-labelledby="next-h">
+          <h3 id="next-h">Next in the workflow</h3>
+          <ol>
+            <li><span><strong>Portrait first.</strong> Generate Output 1 at 4:5 and fix the face before going further.</span></li>
+            <li><span><strong>Then the sheet.</strong> Attach the approved portrait, generate Output 2 at 16:9, and check the identity holds across panels.</span></li>
+            <li><span><strong>Skin too perfect?</strong> Run the <a href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/blob/main/templates/character-sheet-prompt.md#step-3--skin-realism-pass-if-skin-looks-too-perfect">Skin Realism Pass</a> on the approved sheet.</span></li>
+            <li><span><strong>Lock the upload order.</strong> @Image1 = Character 1 sheet · @Image2 = Character 2 sheet · @Image3 = Location · @Image4 = last frame of the previous block.</span></li>
+          </ol>
+        </section>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-foot">
+    <div class="foot-inner">
+      <div>
+        <p class="foot-brand">Guide to Best AI Filmmaking</p>
+        <p class="foot-copy">Character Sheet Builder follows the portrait → three-panel sheet system from the guide's character sheet template. Everything runs in your browser. Your form is saved in this browser only.</p>
+      </div>
+      <nav class="foot-links" aria-label="Repository links">
+        <a class="repo" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          github.com/minhawork123-afk/guide-to-best-ai-filmmaking
+        </a>
+        <a href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/blob/main/GUIDE.md">Read the full guide →</a>
+        <a href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/blob/main/templates/character-sheet-prompt.md">Character sheet prompt template →</a>
+      </nav>
+      <p class="fine">MIT License · Guide to Best AI Filmmaking by Fazi</p>
+    </div>
+  </footer>
+</div>
+
+<noscript><p style="text-align:center;padding:16px;color:#e39a74">Character Sheet Builder needs JavaScript to generate prompts.</p></noscript>
+
+<script>
+(() => {
+  'use strict';
+
+  const STORE_KEY = 'character-sheet-builder.v1';
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+  const form = $('#form');
+
+  /* ------------------------------------------------------------------
+     Options (order matches the guide's field list)
+  ------------------------------------------------------------------ */
+  const OPTIONS = {
+    gender: [['female', 'Female'], ['male', 'Male'], ['non-binary', 'Non-binary']],
+    undertone: ['warm', 'cool', 'neutral', 'olive'],
+    faceShape: ['oval', 'square', 'round', 'heart', 'angular'],
+    eyeShape: ['almond', 'round', 'hooded', 'monolid', 'deep-set', 'downturned'],
+    nose: ['straight', 'button', 'broad', 'sharp'],
+    lips: ['full', 'thin', 'medium'],
+    brows: ['thick', 'thin', 'arched', 'straight'],
+    feature: ['scar', 'tattoo', 'freckles', 'none'],
+    hairLength: ['short', 'medium', 'long', 'shaved'],
+    hairTexture: ['straight', 'wavy', 'curly', 'coily'],
+    hairStyle: ['loose', 'tied up', 'messy bun', 'braided'],
+    hairCondition: ['clean', 'wet', 'messy', 'styled'],
+    height: ['short', 'average', 'tall'],
+    build: ['slim', 'athletic', 'average', 'stocky'],
+    wardrobeCondition: ['clean', 'dirty', 'wet', 'torn'],
+    expression: ['neutral', 'tense', 'exhausted', 'determined'],
+    skinCondition: ['clean', 'wet', 'muddy', 'bloody'],
+  };
+
+  const DEFAULTS = {
+    feature: 'none', hairCondition: 'clean', wardrobeCondition: 'clean',
+    expression: 'neutral', skinCondition: 'clean',
+  };
+
+  // Tess, the worked example in /examples/tess-lode-ugc/
+  const EXAMPLE = {
+    name: 'Tess', age: '28', gender: 'female', nameLabel: true,
+    skinTone: 'light olive', undertone: 'warm', faceShape: 'oval',
+    eyeColor: 'dark brown', eyeShape: 'almond', nose: 'straight', lips: 'medium', brows: 'thick',
+    feature: 'freckles', featureDetail: 'faint freckles and a natural flush across the nose and cheeks',
+    hairColor: 'dark brown', hairLength: 'long', hairTexture: 'wavy', hairStyle: 'messy bun', hairCondition: 'messy',
+    height: 'average', build: 'athletic',
+    topColor: 'forest green', topFabric: 'cotton jersey', topStyle: 'fitted short-sleeve crew-neck t-shirt',
+    bottom: 'black high-waisted full-length leggings in matte stretch fabric',
+    footwear: 'white low-top trainers with white rubber soles',
+    wardrobeCondition: 'clean', wardrobeDetail: '',
+    item: 'small gold hoop earrings in both ears',
+    expression: 'neutral', skinCondition: 'clean', skinDetail: '',
+  };
+
+  /* ------------------------------------------------------------------
+     Phrase banks — every choice is written as what a camera would see
+  ------------------------------------------------------------------ */
+  const UNDERTONE = {
+    warm: 'a warm golden undertone', cool: 'a cool pink undertone',
+    neutral: 'a neutral undertone', olive: 'a muted olive undertone',
+  };
+  const FACE_SHAPE = {
+    oval: 'Oval face with balanced proportions and a softly tapered jaw',
+    square: 'Square face, broad forehead, strong straight jawline with defined corners',
+    round: 'Round face, full soft cheeks, rounded jaw and chin',
+    heart: 'Heart-shaped face, wider forehead and cheekbones tapering to a narrow, pointed chin',
+    angular: 'Angular face, high prominent cheekbones, slightly hollowed cheeks, sharp defined jaw',
+  };
+  const EYE_SHAPE = {
+    almond: 'almond-shaped', round: 'round', hooded: 'hooded', monolid: 'monolid',
+    'deep-set': 'deep-set', downturned: 'downturned',
+  };
+  const NOSE = {
+    straight: 'Straight nose with a medium, even bridge',
+    button: 'Small button nose with a soft, slightly upturned tip',
+    broad: 'Broad nose with a wide bridge and rounded nostrils',
+    sharp: 'Sharp, narrow nose with a high, defined bridge',
+  };
+  const LIPS = {
+    full: 'Full lips, natural unpainted color',
+    thin: 'Thin lips, natural unpainted color',
+    medium: 'Medium lips, natural unpainted color',
+  };
+  const BROWS = {
+    thick: 'Thick, natural, slightly unruly brows',
+    thin: 'Thin, fine brows',
+    arched: 'Softly arched brows',
+    straight: 'Straight, low-set brows',
+  };
+  const HAIR_TEXTURE = { straight: 'straight', wavy: 'wavy', curly: 'curly', coily: 'tightly coiled' };
+  const HAIR_LENGTH = { short: 'cut short', medium: 'shoulder-length', long: 'long' };
+  const HAIR_CONDITION = {
+    clean: 'Clean and dry with a soft natural sheen',
+    wet: 'Soaking wet — strands clumped together, darkened with water and clinging to the forehead and neck',
+    messy: 'Messy and undone — loose flyaway strands escaping around the hairline and nape',
+    styled: 'Neatly styled and deliberate, every strand in place',
+  };
+  const HAIR_CONDITION_REAR = {
+    wet: 'Wet and clumped, darkened with water',
+    messy: 'Undone, with flyaway strands escaping',
+    styled: 'Neat and deliberately styled',
+  };
+  const SHAVED_CONDITION = {
+    clean: 'Clean and dry',
+    wet: 'Scalp wet, water beading on it',
+    messy: 'Uneven regrowth, slightly patchy at the crown',
+    styled: 'Crisp, clean edge-up along the hairline',
+  };
+  const HEIGHT = { short: 'Short in height', average: 'Average height', tall: 'Tall' };
+  const BUILD = {
+    slim: 'slim frame, narrow shoulders and slender limbs',
+    athletic: 'athletic build — lean, with defined shoulders and arms and strong legs',
+    average: 'average build, natural everyday proportions, no visible muscle definition',
+    stocky: 'stocky build — broad shoulders, a thick solid torso and sturdy limbs',
+  };
+  const BUILD_UPPER = {
+    slim: 'slender neck, narrow and slightly sloping shoulders',
+    athletic: 'defined neck and collarbones, strong square shoulders',
+    average: 'natural neck and shoulders, soft everyday proportions',
+    stocky: 'thick neck, broad heavy shoulders',
+  };
+  const WARDROBE_CONDITION = {
+    clean: 'Clean and well-kept, only natural fabric creases',
+    dirty: 'Dirty — dust and grime worked into the fabric',
+    wet: 'Soaked through — fabric darkened with water and clinging to the body',
+    torn: 'Torn — frayed rips with loose hanging threads',
+  };
+  const EXPRESSION = {
+    neutral: 'Relaxed, neutral face — mouth closed, lips resting softly together, brow smooth, eyes calm and steady straight into the lens',
+    tense: 'Jaw clenched and pushed slightly forward, lips pressed into a thin line, brow drawn down and tight, eyes holding still without blinking',
+    exhausted: 'Eyelids heavy and half-lowered, faint dark shadows under the eyes, mouth slightly slack, shoulders dropped, gaze unfocused just past the lens',
+    determined: 'Jaw set, chin level, lips firmly closed, brows lowered slightly, eyes locked straight into the lens without blinking',
+  };
+  const SKIN_CONDITION = {
+    clean: 'Clean, dry skin — no dirt, no sweat, no marks',
+    wet: 'Wet skin — water beading and running, a damp sheen catching the light',
+    muddy: 'Muddy — wet mud smeared and drying, cracking at the edges, dark grit settled in the skin creases',
+    bloody: 'Bloodied — a small cut with dried blood around it, darker at the edges, not fresh or dripping',
+  };
+
+  const DETAIL_PLACEHOLDER = {
+    featureDetail: {
+      scar: 'e.g. thin pale scar through the left eyebrow',
+      tattoo: 'e.g. small black-ink crescent moon below the right eye',
+      freckles: 'e.g. dense freckles across the nose and upper cheeks',
+    },
+    skinDetail: {
+      wet: 'e.g. face, neck and collarbones',
+      muddy: 'e.g. left cheekbone, jaw and both forearms',
+      bloody: 'e.g. a cut above the right eyebrow',
+    },
+    wardrobeDetail: {
+      dirty: 'e.g. heaviest at the knees and both cuffs',
+      wet: 'e.g. soaked from the chest down',
+      torn: 'e.g. ripped at the right knee and the left sleeve cuff',
+    },
+  };
+
+  const CAMERA = 'Shot on ARRI Alexa 35, 85mm prime lens, soft even studio lighting from a large softbox key at 45 degrees with gentle fill, no hard shadows, no rim light, neutral white balance, sharp focus throughout, visible skin texture and pores, no retouching, fine film grain.';
+  const BACKDROP = 'Plain mid-grey seamless studio backdrop, completely empty, evenly lit, no texture, no gradient';
+
+  /* ------------------------------------------------------------------
+     Text helpers
+  ------------------------------------------------------------------ */
+  const OPEN = '⟦', CLOSE = '⟧'; // placeholder fences, rendered as [LABEL]
+  const clean = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const unstop = (s) => s.replace(/[\s.,;:]+$/, '');
+  const sentence = (s) => { s = unstop(clean(s)); return s ? cap(s) + '.' : ''; };
+  const sides = (s) => s.replace(/\b(left|right)\b/gi, (m) => m.toUpperCase());
+  const bare = (s) => { // "A pair of Black jeans" -> "black jeans"
+    s = s.replace(/^(a|an|the)\s+(pair of\s+)?/i, '');
+    return /^[A-Z][a-z]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+  };
+  const slugify = (s) => clean(s).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  /* ------------------------------------------------------------------
+     Prompt builder
+  ------------------------------------------------------------------ */
+  function buildPrompts(d) {
+    const missing = new Set();
+    const need = (label, field) => { missing.add(field); return OPEN + label + CLOSE; };
+    const txt = (k) => sides(clean(d[k])); // free text, LEFT/RIGHT capitalised
+
+    // --- who ---
+    const ageRaw = clean(d.age);
+    const ageNum = /^\d{1,3}$/.test(ageRaw) ? Number(ageRaw) : null;
+    const band = ageNum == null ? 'adult' : ageNum < 13 ? 'child' : ageNum < 18 ? 'teen' : 'adult';
+    const NOUNS = {
+      female: { child: 'girl', teen: 'teenage girl', adult: 'woman' },
+      male: { child: 'boy', teen: 'teenage boy', adult: 'man' },
+      'non-binary': { child: 'child', teen: 'teenager', adult: 'person' },
+    };
+    const noun = d.gender ? NOUNS[d.gender][band] : need('GENDER', 'gender');
+    const poss = { female: 'her', male: 'his', 'non-binary': 'their' }[d.gender] || 'their';
+    let subject;
+    if (ageNum != null) subject = `${/^(8|11|18|8\d)$/.test(ageRaw) ? 'an' : 'a'} ${ageRaw}-year-old ${noun}`;
+    else if (!ageRaw) subject = `a ${need('AGE', 'age')}-year-old ${noun}`;
+    else if (/\d0s|teens|twenties|thirties|forties|fifties|sixties|seventies|eighties|nineties/i.test(ageRaw)) subject = `a ${noun} in ${poss} ${ageRaw}`;
+    else subject = `${/^[aeiou]/i.test(ageRaw) ? 'an' : 'a'} ${ageRaw} ${noun}`;
+
+    // --- face ---
+    const skin = `${clean(d.skinTone) || need('SKIN TONE', 'skinTone')} skin${d.undertone ? ' with ' + UNDERTONE[d.undertone] : ''}, natural and slightly uneven in tone`;
+    const eyes = `${clean(d.eyeColor) || need('EYE COLOR', 'eyeColor')} ${d.eyeShape ? EYE_SHAPE[d.eyeShape] + ' ' : ''}eyes`;
+    let mark = '';
+    const fd = txt('featureDetail');
+    switch (d.feature) {
+      case 'scar': mark = !fd ? `A thin, pale, slightly raised scar ${need('EXACTLY WHERE ON THE FACE', 'featureDetail')}` : /scar/i.test(fd) ? fd : `A thin, pale, slightly raised scar ${fd}`; break;
+      case 'tattoo': mark = !fd ? `A small tattoo ${need('DESIGN + EXACTLY WHERE ON THE FACE', 'featureDetail')}` : /tattoo|\bink/i.test(fd) ? fd : `A small tattoo — ${fd}`; break;
+      case 'freckles': mark = !fd ? 'A light scattering of freckles across the nose and upper cheeks' : /freckle/i.test(fd) ? fd : `Freckles ${fd}`; break;
+      case 'none': mark = 'No scars, tattoos or other marks on the face'; break;
+    }
+    const face = [
+      skin,
+      d.faceShape ? FACE_SHAPE[d.faceShape] : need('FACE SHAPE', 'faceShape'),
+      eyes, NOSE[d.nose], LIPS[d.lips], BROWS[d.brows], mark,
+    ].filter(Boolean).map(sentence).join(' ');
+
+    // --- hair ---
+    const hairColor = clean(d.hairColor) || need('HAIR COLOR', 'hairColor');
+    const shaved = d.hairLength === 'shaved';
+    let hairFront, hairRear;
+    if (shaved) {
+      hairFront = sentence(`Shaved head — ${hairColor} hair buzzed down to an even close stubble, the scalp visible through it`)
+        + (d.hairCondition ? ' ' + sentence(SHAVED_CONDITION[d.hairCondition]) : '');
+      hairRear = sentence(`Shaved head seen from behind — the full shape of the skull and the nape of the neck clearly visible, ${hairColor} stubble even across the back of the head`);
+    } else {
+      const len = d.hairLength;
+      const tex = HAIR_TEXTURE[d.hairTexture];
+      const hairNoun = [hairColor, tex].filter(Boolean).join(' ') + ' hair';
+      const STYLE = {
+        loose: len === 'long' ? 'worn down and loose, falling past the shoulders'
+          : len === 'medium' ? 'worn down and loose, resting on the shoulders'
+          : len === 'short' ? 'worn natural, with nothing tying it back' : 'worn down and loose',
+        'tied up': 'pulled back and tied up with a plain elastic',
+        'messy bun': 'pulled up into a messy high bun',
+        braided: len === 'short' ? 'braided close to the scalp in neat rows' : 'braided into a single braid',
+      };
+      hairFront = sentence([hairNoun, len ? HAIR_LENGTH[len] : need('HAIR LENGTH', 'hairLength'), STYLE[d.hairStyle]].filter(Boolean).join(', '))
+        + (d.hairCondition ? ' ' + sentence(HAIR_CONDITION[d.hairCondition]) : '');
+
+      const H = `${poss} ${hairNoun}`;
+      const REAR = {
+        loose: len === 'long' ? `${H} worn loose, falling down the back past the shoulder blades`
+          : len === 'medium' ? `${H} worn loose, ending at the shoulders`
+          : len === 'short' ? `${H} cut short at the back, ending above the nape of the neck` : `${H} worn loose`,
+        'tied up': `${H} pulled back and tied with a plain elastic, the tie visible at the back of the head, nape of the neck clear`,
+        'messy bun': `${H} gathered into a messy bun sitting high on the back of the head, loose strands at the nape`,
+        braided: len === 'short' ? `${H} braided close to the scalp in neat rows running toward the nape`
+          : `${H} in a single braid running down the centre of the back`,
+      };
+      hairRear = sentence(REAR[d.hairStyle] || `${H}, ${len ? HAIR_LENGTH[len] : 'as in the LEFT panel'}, seen from behind, nape of the neck visible`)
+        + (HAIR_CONDITION_REAR[d.hairCondition] ? ' ' + sentence(HAIR_CONDITION_REAR[d.hairCondition]) : '');
+    }
+
+    // --- build ---
+    const buildUpper = d.build ? sentence(`Visible from chest up — ${BUILD_UPPER[d.build]}, upright relaxed posture`) : '';
+    const buildFull = sentence([
+      d.height ? HEIGHT[d.height] : need('HEIGHT', 'height'),
+      d.build ? BUILD[d.build] : need('BUILD', 'build'),
+    ].join(', '));
+
+    // --- wardrobe ---
+    const tc = clean(d.topColor), tf = clean(d.topFabric), ts = txt('topStyle');
+    const top = ts ? [ts, (tc || tf) ? 'in ' + [tc, tf].filter(Boolean).join(' ') : ''].filter(Boolean).join(' ')
+      : (tc || tf) ? [tc, tf, 'top'].filter(Boolean).join(' ')
+      : need('TOP GARMENT — COLOR, FABRIC, STYLE', 'top');
+    const bottom = txt('bottom') || need('BOTTOM GARMENT', 'bottom');
+    const footwear = txt('footwear') || need('FOOTWEAR', 'footwear');
+    const wc = d.wardrobeCondition;
+    const wDetail = txt('wardrobeDetail');
+    const wardCond = wc ? sentence(WARDROBE_CONDITION[wc]) + (wc !== 'clean' && wDetail ? ` Exactly where: ${unstop(wDetail)}.` : '') : '';
+    const item = txt('item');
+    const itemLine = item ? sentence(item) : 'None — no tattoos, jewelry or glasses.';
+    const rearWardrobe = sentence(`The same outfit seen from behind — ${bare(top)}, ${bare(bottom)}, ${bare(footwear)} — identical in color, fabric and condition to the CENTRE panel`)
+      + (item ? ' Any tattoo or jewelry visible from behind stays in exactly the same place.' : '');
+
+    // --- expression & condition ---
+    const expression = d.expression ? sentence(EXPRESSION[d.expression]) : need('EXPRESSION', 'expression');
+    let skinCond = '';
+    if (d.skinCondition) {
+      const sd = txt('skinDetail');
+      const where = d.skinCondition === 'clean' ? ''
+        : sd ? unstop(sd)
+        : d.skinCondition === 'wet' ? 'face, neck and hair'
+        : need('WHERE ON THE BODY', 'skinDetail');
+      skinCond = sentence(SKIN_CONDITION[d.skinCondition]) + (where ? ` Exactly where: ${where}.` : '');
+    }
+
+    // LEFT / RIGHT are hard facts — make sure the model reads them from the character's side.
+    const userText = [fd, ts, txt('bottom'), txt('footwear'), wDetail, item, txt('skinDetail')].join(' ');
+    const sidesNote = /\b(LEFT|RIGHT)\b/.test(userText)
+      ? "Body sides marked LEFT or RIGHT are the character's own left and right, not the viewer's." : '';
+
+    // --- name label (optional, as on the Tess sheet) ---
+    const name = clean(d.name).replace(/["“”]/g, '');
+    const showLabel = !!(d.nameLabel && name);
+    const labelLine = showLabel
+      ? ` A small, clean white sans-serif label in the top-left corner of the LEFT panel reads "${name.toUpperCase()}"${ageNum != null ? `, with "AGE ${ageNum}" in smaller type beneath it` : ''}. No other text anywhere on the sheet.`
+      : '';
+
+    /* ---------- OUTPUT 1 — PORTRAIT (4:5) ---------- */
+    const portrait = [
+      `Photorealistic character reference photograph. Chest-up portrait of ${subject} against a plain mid-grey seamless studio backdrop, facing camera straight on.`,
+      `FACE: ${face}`,
+      `HAIR: ${hairFront}`,
+      buildUpper && `BUILD: ${buildUpper}`,
+      `WARDROBE: ${sentence(top)}${wardCond ? ' ' + wardCond : ''}`,
+      `EXPRESSION: ${expression}`,
+      skinCond && `CONDITION: ${skinCond}`,
+      `DISTINGUISHING FEATURE: ${itemLine}`,
+      sidesNote,
+      'Background: plain mid-grey seamless studio backdrop, completely empty, evenly lit, no texture, no gradient, no shadow cast on the backdrop.',
+      `${CAMERA} Original character, not resembling any existing person or public figure.`,
+      'NEGATIVE: no smooth or airbrushed skin, no beauty filter, no CGI look, no gradient background, no heavy makeup, no resemblance to any real person.',
+    ].filter(Boolean).join('\n\n');
+
+    /* ---------- OUTPUT 2 — THREE-PANEL SHEET (16:9) ---------- */
+    const sheet = [
+      'Photorealistic character reference sheet. Three panels side by side against a plain mid-grey seamless studio backdrop. One continuous background across all three panels. Match the attached approved portrait exactly — same face, same skin, same hair.',
+      [
+        `LEFT PANEL — chest-up portrait of ${subject}, facing camera straight on, level chin.`,
+        `FACE: ${face}`,
+        `HAIR: ${hairFront}`,
+        `EXPRESSION: ${expression}`,
+        `WARDROBE (TOP LAYER ONLY): ${sentence(top)}`,
+      ].join('\n'),
+      [
+        `CENTRE PANEL — full-length front view of the same ${noun}, framed from the shoulders down so the head is DELIBERATELY CROPPED OUT OF FRAME. This is an intentional headless costume display — the clothing simply stops at the collar line. The omission is deliberate so the model locks onto one single face from the LEFT panel only.`,
+        'Standing upright and square to camera, weight evenly on both feet, arms hanging relaxed and straight at the sides, nothing crossing the body, hands open and visible.',
+        `BUILD: ${buildFull}`,
+        `WARDROBE, HEAD TO TOE: ${[sentence(top), sentence(bottom), sentence(footwear), wardCond].filter(Boolean).join(' ')}`,
+        `DISTINGUISHING FEATURES: ${itemLine}`,
+        skinCond && `CONDITION: ${skinCond}`,
+      ].filter(Boolean).join('\n'),
+      [
+        `RIGHT PANEL — full-length rear view of the same ${noun}, seen from directly behind, HEAD FULLY VISIBLE AND COMPLETE from the top of the skull down to the feet. Hair, skull shape and nape of the neck all in frame. Head turned very slightly so a sliver of cheek or jaw catches in profile.`,
+        `HAIR FROM BEHIND: ${hairRear}`,
+        `WARDROBE FROM BEHIND: ${rearWardrobe}`,
+        'Same neutral upright posture, arms at sides.',
+      ].join('\n'),
+      'CRITICAL: Only the CENTRE panel is headless. LEFT and RIGHT panels both include the head. This character has a head and face in every shot of the film.',
+      sidesNote,
+      `All three panels identically lit and identically scaled. ${BACKDROP}.${labelLine}`,
+      `${CAMERA}\nOriginal character, not resembling any existing person or public figure.`,
+      `NEGATIVE: no resemblance to any real person or influencer, no identity drift between panels, no smooth or airbrushed or waxy or CGI-looking skin, no beauty filter, no heavy makeup, no arched back or posed stance, no action poses, no hands raised, no crossed arms, no props, ${showLabel ? 'no other text' : 'no text'}, no watermark, no branding.`,
+    ].filter(Boolean).join('\n\n');
+
+    const slug = slugify(name) || 'character1';
+    return { portrait, sheet, missing, name, slug };
+  }
+
+  /* ------------------------------------------------------------------
+     Form plumbing
+  ------------------------------------------------------------------ */
+  // Build pill radio groups from OPTIONS
+  $$('.pills').forEach((box) => {
+    const name = box.dataset.name;
+    OPTIONS[name].forEach((opt) => {
+      const [value, text] = Array.isArray(opt) ? opt : [opt, cap(opt)];
+      const label = document.createElement('label');
+      label.className = 'pill';
+      const input = document.createElement('input');
+      input.type = 'radio'; input.name = name; input.value = value;
+      const span = document.createElement('span');
+      span.textContent = text;
+      label.append(input, span);
+      box.append(label);
+    });
+  });
+
+  // Three-panel schematic
+  const tpl = $('#panels-tpl');
+  $$('[data-panels]').forEach((slot) => slot.replaceWith(tpl.content.cloneNode(true)));
+
+  // Clicking a selected pill again clears it
+  form.addEventListener('pointerdown', (e) => {
+    const pill = e.target.closest('.pill');
+    if (pill) { const i = pill.querySelector('input'); i.dataset.was = i.checked ? '1' : ''; }
+  });
+  form.addEventListener('click', (e) => {
+    const i = e.target;
+    if (i.matches && i.matches('.pill input')) {
+      if (i.dataset.was === '1') {
+        i.checked = false;
+        form.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      i.dataset.was = '';
+    }
+  });
+
+  function readForm() {
+    const d = {};
+    for (const el of form.elements) {
+      if (!el.name) continue;
+      if (el.type === 'radio') { if (el.checked) d[el.name] = el.value; else if (!(el.name in d)) d[el.name] = ''; }
+      else if (el.type === 'checkbox') d[el.name] = el.checked;
+      else d[el.name] = el.value;
+    }
+    return d;
+  }
+
+  function writeForm(d) {
+    for (const el of form.elements) {
+      if (!el.name) continue;
+      const v = d[el.name];
+      if (el.type === 'radio') el.checked = v === el.value;
+      else if (el.type === 'checkbox') el.checked = !!v;
+      else el.value = v == null ? '' : v;
+    }
+  }
+
+  function syncUI() {
+    const d = readForm();
+    // Detail inputs appear only for the choices that need a location
+    $$('[data-show-when]').forEach((box) => {
+      const [key, list] = box.dataset.showWhen.split(':');
+      const val = d[key];
+      const on = list.split(',').includes(val);
+      box.hidden = !on;
+      if (on) {
+        const input = $('input', box);
+        const ph = DETAIL_PLACEHOLDER[input.name] && DETAIL_PLACEHOLDER[input.name][val];
+        if (ph) input.placeholder = ph;
+      }
+    });
+    // Shaved heads have no style or texture to describe
+    const shaved = d.hairLength === 'shaved';
+    $('[data-field="hairStyle"]').disabled = shaved;
+    $('[data-field="hairTexture"]').disabled = shaved;
+    // Show what the camera sees for the chosen expression
+    const prev = $('#exprPreview');
+    if (d.expression) {
+      prev.hidden = false;
+      prev.innerHTML = '<b>Camera sees</b>' + esc(EXPRESSION[d.expression]) + '.';
+    } else prev.hidden = true;
+  }
+
+  /* ------------------------------------------------------------------
+     Rendering
+  ------------------------------------------------------------------ */
+  let generated = false;
+  let latest = { portrait: '', sheet: '' };
+
+  const toPlain = (t) => t.split(OPEN).join('[').split(CLOSE).join(']');
+  const toHTML = (t) => esc(t)
+    .replace(/^([A-Z][A-Z ,()]*?(?::| —))/gm, '<span class="k">$1</span>')
+    .replace(new RegExp(OPEN + '(.*?)' + CLOSE, 'g'), '<mark>[$1]</mark>');
+  const words = (t) => t.split(/\s+/).filter(Boolean).length;
+
+  function render() {
+    if (!generated) {
+      $('#empty').hidden = false;
+      $('#results').hidden = true;
+      $$('[data-field]').forEach((f) => f.classList.remove('is-missing'));
+      return;
+    }
+    const out = buildPrompts(readForm());
+    latest = { portrait: toPlain(out.portrait), sheet: toPlain(out.sheet) };
+
+    $('#portrait').innerHTML = toHTML(out.portrait);
+    $('#sheet').innerHTML = toHTML(out.sheet);
+    $('#wc-portrait').textContent = words(latest.portrait) + ' words';
+    $('#wc-sheet').textContent = words(latest.sheet) + ' words';
+    $$('[data-who]').forEach((el) => { el.textContent = out.name ? '— ' + out.name : ''; });
+    $('[data-file="portrait"]').textContent = out.slug + '-portrait.png';
+    $('[data-file="sheet"]').textContent = out.slug + '-sheet.png';
+
+    // Flag empty required fields, in form order
+    const missingFields = $$('[data-field]').filter((f) => {
+      const on = out.missing.has(f.dataset.field);
+      f.classList.toggle('is-missing', on);
+      return on;
+    });
+    const status = $('#status');
+    if (missingFields.length) {
+      status.className = 'status warn';
+      const n = missingFields.length;
+      status.innerHTML = `<span class="dot"></span><span class="grow">${n} field${n > 1 ? 's' : ''} still open — shown as <b>[BRACKETS]</b> in the prompts.</span><button type="button" id="jump">Show me</button>`;
+      $('#jump').addEventListener('click', () => {
+        const f = missingFields[0];
+        f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const target = $('input:not([type=radio]), input[type=radio]', f);
+        if (target) target.focus({ preventScroll: true });
+      });
+    } else {
+      status.className = 'status ok';
+      status.innerHTML = '<span class="dot"></span><span class="grow">Complete — both prompts are ready to paste into Nano Banana Pro.</span>';
+    }
+
+    $('#empty').hidden = true;
+    $('#results').hidden = false;
+  }
+
+  /* ------------------------------------------------------------------
+     Persistence (this browser only)
+  ------------------------------------------------------------------ */
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ data: readForm(), generated })); } catch (e) { /* storage unavailable */ }
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+      if (saved && saved.data) { writeForm(saved.data); generated = !!saved.generated; return true; }
+    } catch (e) { /* ignore */ }
+    return false;
+  }
+
+  /* ------------------------------------------------------------------
+     Actions
+  ------------------------------------------------------------------ */
+  const stacked = window.matchMedia('(max-width: 1080px)');
+  function revealOutput() {
+    if (stacked.matches) $('#output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else $('#output').scrollTop = 0;
+  }
+
+  function generate() {
+    generated = true;
+    render();
+    save();
+    revealOutput();
+  }
+
+  form.addEventListener('submit', (e) => { e.preventDefault(); generate(); });
+  form.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); generate(); }
+  });
+
+  let raf = 0;
+  const onChange = () => {
+    syncUI();
+    save();
+    if (generated) { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+  };
+  form.addEventListener('input', onChange);
+  form.addEventListener('change', onChange);
+
+  function loadExample() {
+    writeForm(EXAMPLE);
+    syncUI();
+    generate();
+  }
+  $('#loadExample').addEventListener('click', loadExample);
+  $('#loadExample2').addEventListener('click', loadExample);
+
+  const resetBtn = $('#reset');
+  let armTimer = 0;
+  resetBtn.addEventListener('click', () => {
+    if (!resetBtn.classList.contains('is-armed')) {
+      resetBtn.classList.add('is-armed');
+      resetBtn.textContent = 'Clear everything?';
+      armTimer = setTimeout(() => { resetBtn.classList.remove('is-armed'); resetBtn.textContent = 'Reset'; }, 3000);
+      return;
+    }
+    clearTimeout(armTimer);
+    resetBtn.classList.remove('is-armed');
+    resetBtn.textContent = 'Reset';
+    writeForm(DEFAULTS);
+    generated = false;
+    syncUI();
+    render();
+    save();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.append(ta); ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { /* ignore */ }
+      ta.remove();
+      return ok;
+    }
+  }
+  $$('[data-copy]').forEach((btn) => {
+    const label = $('span', btn);
+    let t = 0;
+    btn.addEventListener('click', async () => {
+      const ok = await copyText(latest[btn.dataset.copy]);
+      label.textContent = ok ? 'Copied' : 'Select & copy';
+      btn.classList.toggle('done', ok);
+      if (!ok) { const sel = window.getSelection(); const r = document.createRange(); r.selectNodeContents($('#' + btn.dataset.copy)); sel.removeAllRanges(); sel.addRange(r); }
+      clearTimeout(t);
+      t = setTimeout(() => { label.textContent = 'Copy'; btn.classList.remove('done'); }, 1800);
+    });
+  });
+
+  /* ------------------------------------------------------------------
+     Boot
+  ------------------------------------------------------------------ */
+  if (!restore()) writeForm(DEFAULTS);
+  syncUI();
+  render();
+})();
+</script>
+</body>
+</html>
