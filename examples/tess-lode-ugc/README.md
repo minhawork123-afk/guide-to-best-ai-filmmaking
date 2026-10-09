@@ -1,4 +1,3 @@
-[README (1).md](https://github.com/user-attachments/files/32432611/README.1.md)
 # Example: Tess / LODE Protein — AI UGC Ad
 ### Complete production package — all assets and prompts included
 

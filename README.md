@@ -1,4 +1,3 @@
-[README (3).md](https://github.com/user-attachments/files/32432850/README.3.md)
 # Guide to Best AI Filmmaking
 ### Realistic AI Video — Cinematic Films & AI Personas
 
