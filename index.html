@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Faizan Film Labs — AI Filmmaking Studio</title>
+<meta name="description" content="Faizan Film Labs is an AI filmmaking studio. AI films and realistic AI video, made with a repeatable seven-stage workflow, plus free tools and an open-source guide.">
+<meta name="theme-color" content="#0f0f11">
+<link rel="canonical" href="https://www.faizanfilmlabs.online/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Faizan Film Labs">
+<meta property="og:title" content="Faizan Film Labs — AI Filmmaking Studio">
+<meta property="og:description" content="AI films and realistic AI video, made with a repeatable workflow.">
+<meta property="og:url" content="https://www.faizanfilmlabs.online/">
+<!-- [ADD] Share image: upload a 1200×630 image to the repo, then uncomment and set its full URL.
+<meta property="og:image" content="https://www.faizanfilmlabs.online/[ADD].jpg">
+<meta property="og:image:alt" content="[ADD]">
+-->
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141416'/%3E%3Crect x='6' y='9' width='6' height='14' rx='1.5' fill='%23d4a853'/%3E%3Crect x='13' y='9' width='6' height='14' rx='1.5' fill='%23d4a853' opacity='.5'/%3E%3Crect x='20' y='9' width='6' height='14' rx='1.5' fill='%23d4a853'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0f0f11;
+    --bg-2: #131316;
+    --panel: #18181c;
+    --panel-2: #1d1d22;
+    --line: #2a2a31;
+    --line-2: #3a3a43;
+    --text: #f5f2eb;
+    --text-2: #bdb7ab;
+    --muted: #938d82;
+    --gold: #d4a853;
+    --gold-hi: #ecd08f;
+    --gold-lo: #8d7038;
+    --gold-wash: rgba(212, 168, 83, 0.1);
+    --sans: Inter, "Inter Display", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --radius: 18px;
+    --gutter: 32px;
+    --header-h: 68px;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background:
+      radial-gradient(1200px 640px at 82% -10%, rgba(212, 168, 83, 0.1), transparent 62%),
+      radial-gradient(900px 520px at -10% 8%, rgba(255, 255, 255, 0.035), transparent 60%),
+      var(--bg);
+    overflow-x: hidden;
+  }
+  /* gold hairline across the top of the viewport */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold) 28%, var(--gold-hi) 50%, var(--gold) 72%, transparent);
+    opacity: 0.6;
+    z-index: 60;
+    pointer-events: none;
+  }
+  /* film grain */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 59;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  a { color: var(--gold-hi); text-decoration: none; }
+  a:hover { color: #f6e2b4; }
+  :focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; border-radius: 6px; }
+  img, svg { display: block; }
+  h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; }
+
+  .icons { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .skip {
+    position: absolute; left: 16px; top: -64px; z-index: 80;
+    background: var(--gold); color: #17130b; padding: 10px 16px; border-radius: 10px; font-weight: 600;
+  }
+  .skip:focus { top: 14px; color: #17130b; }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
+  .ico { width: 1em; height: 1em; flex: none; }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(15, 15, 17, 0.78);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: var(--header-h); }
+  .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--text); font-weight: 650; font-size: 15px; letter-spacing: 0.01em; white-space: nowrap; }
+  .brand:hover { color: var(--text); }
+  .brand svg { width: 28px; height: 28px; }
+  .nav ul { display: flex; align-items: center; gap: 4px; list-style: none; }
+  .nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: 999px; color: var(--text-2); font-size: 14px; font-weight: 500; white-space: nowrap; transition: color .2s, background-color .2s; }
+  .nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+  .nav .nav-cta { margin-left: 8px; border: 1px solid var(--gold-lo); color: var(--gold-hi); padding: 0 16px; }
+  .nav .nav-cta:hover { border-color: var(--gold); background: var(--gold-wash); color: #f6e2b4; }
+
+  /* ---------- Buttons & links ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 50px; padding: 0 24px; border-radius: 999px;
+    font-size: 15px; font-weight: 600; letter-spacing: 0.005em; line-height: 1.2; text-align: center;
+    transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s, transform .2s;
+  }
+  .btn .ico { width: 15px; height: 15px; }
+  .btn-gold {
+    background: linear-gradient(180deg, #e3be72, #cc9d43);
+    color: #17130b;
+    box-shadow: 0 10px 30px rgba(212, 168, 83, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  .btn-gold:hover { color: #17130b; background: linear-gradient(180deg, #ecca85, #d4a853); box-shadow: 0 14px 38px rgba(212, 168, 83, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+  .btn-line { border: 1px solid var(--line-2); color: var(--text); background: rgba(255, 255, 255, 0.02); }
+  .btn-line:hover { color: var(--text); border-color: var(--gold-lo); background: var(--gold-wash); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .tlink { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; font-size: 14.5px; font-weight: 600; color: var(--gold-hi); }
+  .tlink .ico { width: 14px; height: 14px; transition: transform .2s; }
+  .tlink:hover .ico { transform: translate(2px, -2px); }
+  .tlink.quiet { color: var(--text-2); font-weight: 500; }
+  .tlink.quiet:hover { color: var(--text); }
+
+  /* ---------- Sections ---------- */
+  .section { padding: 112px 0; scroll-margin-top: var(--header-h); }
+  .section + .section { border-top: 1px solid rgba(42, 42, 49, 0.6); }
+  .eyebrow {
+    display: flex; align-items: center; gap: 14px; margin: 0 0 18px;
+    font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  }
+  .eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--gold); opacity: 0.7; }
+  .section-head { max-width: 760px; margin-bottom: 56px; }
+  .section-head h2 { font-size: clamp(32px, 4.4vw, 52px); }
+  .section-head .intro { margin-top: 18px; color: var(--text-2); font-size: 17.5px; line-height: 1.65; max-width: 62ch; }
+  .section-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 44px; }
+
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, var(--panel), var(--bg-2));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .card:hover { border-color: #4a3f2a; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 56px 0 96px; }
+  .frame {
+    position: relative;
+    padding: clamp(56px, 8vw, 112px) clamp(24px, 6vw, 80px);
+    border-radius: 6px;
+    background:
+      radial-gradient(70% 90% at 85% 10%, rgba(212, 168, 83, 0.08), transparent 60%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0));
+  }
+  .corner { position: absolute; width: 28px; height: 28px; border: 0 solid var(--gold); opacity: 0.75; }
+  .corner.tl { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+  .corner.tr { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
+  .corner.bl { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+  .corner.br { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+  .hud {
+    position: absolute; display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .hud.tl { top: 18px; left: 44px; }
+  .hud.tr { top: 18px; right: 44px; }
+  .hud.br { bottom: 18px; right: 44px; }
+  .rec { width: 7px; height: 7px; border-radius: 50%; background: #e0574a; box-shadow: 0 0 10px rgba(224, 87, 74, 0.7); }
+  @media (prefers-reduced-motion: no-preference) {
+    .rec { animation: rec 1.6s steps(1, end) infinite; }
+    @keyframes rec { 50% { opacity: 0.15; } }
+  }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 56px; align-items: center; }
+  .slate { width: 320px; margin-right: 8px; transform: rotate(2deg); filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.55)); }
+  .clap {
+    position: relative; height: 30px; border-radius: 5px 5px 2px 2px; border: 1px solid #2c2c33;
+    background: repeating-linear-gradient(120deg, var(--gold) 0 20px, #121214 20px 40px);
+  }
+  .clap.top { margin-bottom: 6px; transform-origin: 4px 100%; transform: rotate(-11deg); }
+  .slate-body {
+    margin-top: 2px; border-radius: 3px 3px 14px 14px; border: 1px solid #2c2c33;
+    background: linear-gradient(180deg, #19191d, #121215);
+  }
+  .slate-row { padding: 14px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  .slate-row:last-child { border-bottom: 0; }
+  .slate-row.cols { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0; }
+  .slate-row.cols > div { padding: 14px 20px; }
+  .slate-row.cols > div + div { border-left: 1px solid rgba(255, 255, 255, 0.1); }
+  .slate small { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .slate b { display: block; margin-top: 4px; font-size: 20px; font-weight: 650; letter-spacing: -0.01em; color: var(--text); white-space: nowrap; }
+  .slate .g { color: var(--gold-hi); }
+  .hero h1 {
+    font-size: clamp(46px, 9vw, 112px);
+    font-weight: 750;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+  .hero h1 .g {
+    display: block;
+    color: var(--gold);
+    background: linear-gradient(100deg, var(--gold-hi) 0%, var(--gold) 45%, #b98a3a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .tagline { margin-top: 28px; max-width: 30ch; font-size: clamp(21px, 2.6vw, 30px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; color: var(--text); }
+  .hero .lead { margin-top: 18px; max-width: 58ch; color: var(--text-2); font-size: 17px; }
+  .hero .btn-row { margin-top: 40px; }
+  .stack {
+    display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 44px; list-style: none;
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; color: var(--muted);
+  }
+  .stack li { display: inline-flex; align-items: center; gap: 10px; }
+  .stack li + li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--gold-lo); }
+
+  /* ---------- Work ---------- */
+  .work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .work-card { display: flex; flex-direction: column; }
+  .poster {
+    position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden;
+    border-bottom: 1px solid var(--line); color: #fff;
+  }
+  .poster:hover { color: #fff; }
+  .poster > * { position: absolute; }
+  .chip {
+    top: 14px; left: 14px; z-index: 3;
+    padding: 5px 10px; border-radius: 999px;
+    font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #ece7dc; background: rgba(8, 8, 10, 0.62); border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .tc { right: 14px; bottom: 26px; z-index: 3; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.7); font-variant-numeric: tabular-nums; }
+  .play {
+    left: 14px; bottom: 12px; z-index: 4; width: 46px; height: 46px;
+    display: grid; place-items: center; border-radius: 50%;
+    background: rgba(12, 12, 14, 0.55); border: 1px solid rgba(255, 255, 255, 0.32);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    transition: background-color .25s, border-color .25s, transform .25s;
+  }
+  .play svg { width: 15px; height: 15px; margin-left: 2px; }
+  .work-card:hover .play { background: var(--gold); border-color: var(--gold); color: #17130b; transform: scale(1.06); }
+
+  /* BMW: night road, headlight streak */
+  .p-bmw {
+    background:
+      radial-gradient(55% 34% at 50% 60%, rgba(236, 208, 143, 0.2), transparent 70%),
+      linear-gradient(180deg, #090b10 0%, #141a25 52%, #07080b 100%);
+  }
+  .p-bmw .road {
+    left: 0; right: 0; bottom: 0; height: 40%;
+    clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+  }
+  .p-bmw .road::after {
+    content: ""; position: absolute; left: 50%; top: 6%; bottom: 0; width: 2px; margin-left: -1px;
+    background: repeating-linear-gradient(180deg, rgba(236, 208, 143, 0.5) 0 9px, transparent 9px 20px);
+  }
+  .p-bmw .streak {
+    left: 6%; right: 6%; top: 59%; height: 2px;
+    background: linear-gradient(90deg, transparent, #f4e3bd 28%, #fffaf0 50%, #f4e3bd 72%, transparent);
+    box-shadow: 0 0 22px 5px rgba(236, 208, 143, 0.4);
+  }
+  .p-bmw .word {
+    left: 0; right: 0; top: 13%; text-align: center;
+    font-size: clamp(44px, 6vw, 72px); font-weight: 800; letter-spacing: 0.16em; text-indent: 0.16em;
+    color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.16);
+  }
+
+  /* Tess / LODE: vertical UGC phone frame */
+  .p-tess {
+    background:
+      radial-gradient(48% 70% at 28% 40%, rgba(226, 160, 112, 0.26), transparent 70%),
+      radial-gradient(40% 60% at 82% 70%, rgba(212, 168, 83, 0.12), transparent 70%),
+      linear-gradient(135deg, #2a1b14, #150f0c 60%, #0e0b0a);
+  }
+  .p-tess .phone {
+    left: 50%; top: 9%; height: 82%; aspect-ratio: 9 / 16; transform: translateX(-50%);
+    border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.22);
+    background:
+      radial-gradient(ellipse 22% 12.4% at 50% 36%, rgba(236, 196, 160, 0.6) 0 96%, transparent 100%),
+      radial-gradient(ellipse 46% 26% at 50% 80%, rgba(236, 196, 160, 0.34) 0 98%, transparent 100%),
+      linear-gradient(180deg, #3b2a21, #1c1411);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  }
+  .p-tess .phone::before {
+    content: ""; position: absolute; left: 50%; top: 5px; width: 26%; height: 4px; margin-left: -13%;
+    border-radius: 4px; background: rgba(0, 0, 0, 0.45);
+  }
+  .p-tess .phone::after {
+    content: ""; position: absolute; left: 14%; right: 14%; bottom: 9%; height: 14px;
+    border-radius: 3px;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)) 0 0 / 100% 5px no-repeat,
+      linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)) 50% 100% / 70% 5px no-repeat;
+  }
+
+  /* Launch film: the seven-stage line */
+  .p-launch {
+    background:
+      radial-gradient(ellipse 52% 46% at 50% 50%, rgba(212, 168, 83, 0.17), transparent 70%),
+      #09090b;
+  }
+  .p-launch .line {
+    left: 12%; right: 12%; top: 50%; height: 0; display: flex; justify-content: space-between; align-items: center;
+  }
+  .p-launch .line::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: linear-gradient(90deg, rgba(212, 168, 83, 0.25), var(--gold) 60%, var(--gold-hi));
+  }
+  .p-launch .line i {
+    position: relative; width: 9px; height: 9px; border-radius: 50%;
+    background: #09090b; border: 1px solid var(--gold);
+  }
+  .p-launch .line i:last-child { width: 13px; height: 13px; background: var(--gold-hi); border-color: var(--gold-hi); box-shadow: 0 0 16px 3px rgba(236, 208, 143, 0.55); }
+
+  .work-body { display: flex; flex-direction: column; flex: 1; padding: 24px 24px 22px; }
+  .work-body h3 { font-size: 21px; letter-spacing: -0.015em; }
+  .work-body h3 a { color: var(--text); }
+  .work-body h3 a:hover { color: var(--gold-hi); }
+  .work-body .kind { margin-top: 6px; font-size: 14px; color: var(--gold); font-weight: 500; }
+  .work-body .desc { margin-top: 14px; color: var(--text-2); font-size: 15px; line-height: 1.6; }
+  .pipeline { margin-top: 16px; font-family: var(--mono); font-size: 11.5px; line-height: 1.75; letter-spacing: 0.02em; color: var(--muted); }
+  .work-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: auto; padding-top: 18px; }
+
+  /* ---------- Tools ---------- */
+  .tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .tool { display: flex; flex-direction: column; padding: 36px; }
+  .tool::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; opacity: 0.6;
+    background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold-hi) 50%, var(--gold) 70%, transparent);
+  }
+  .tool-ico {
+    width: 52px; height: 52px; display: grid; place-items: center; border-radius: 14px;
+    background: var(--gold-wash); border: 1px solid rgba(212, 168, 83, 0.28); color: var(--gold);
+  }
+  .tool-ico svg { width: 26px; height: 26px; }
+  .tool h3 { margin-top: 24px; font-size: 26px; }
+  .tool .desc { margin-top: 12px; color: var(--text-2); font-size: 16px; }
+  .ticks { list-style: none; margin-top: 20px; display: grid; gap: 10px; }
+  .ticks li { position: relative; padding-left: 26px; color: var(--text-2); font-size: 15px; line-height: 1.55; }
+  .ticks li::before {
+    content: ""; position: absolute; left: 2px; top: 0.62em; width: 10px; height: 5px;
+    border-left: 1.5px solid var(--gold); border-bottom: 1.5px solid var(--gold); transform: rotate(-45deg);
+  }
+  .ticks strong { color: var(--text); font-weight: 600; }
+  .tool .btn-row { margin-top: auto; padding-top: 30px; align-items: center; }
+  kbd {
+    font-family: var(--mono); font-size: 0.86em; color: var(--text);
+    padding: 1px 6px; border-radius: 5px; border: 1px solid var(--line-2); background: var(--panel-2);
+  }
+
+  /* ---------- Workflow ---------- */
+  .flow { list-style: none; position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .flow::before {
+    content: ""; position: absolute; left: calc(100% / 14); right: calc(100% / 14); top: 23px; height: 1px;
+    background: linear-gradient(90deg, var(--gold-lo), var(--gold) 70%, var(--gold-hi));
+  }
+  .flow li { position: relative; display: flex; flex-direction: column; align-items: center; padding: 0 10px; text-align: center; }
+  .node {
+    position: relative; z-index: 1; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--gold-lo);
+    font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--gold-hi); font-variant-numeric: tabular-nums;
+  }
+  .flow li:last-child .node { background: linear-gradient(180deg, #e3be72, #cc9d43); border-color: var(--gold); color: #17130b; box-shadow: 0 0 26px rgba(212, 168, 83, 0.35); }
+  .flow h3 { margin-top: 20px; font-size: 18px; letter-spacing: -0.01em; }
+  .flow p { margin-top: 8px; color: var(--text-2); font-size: 14px; line-height: 1.55; }
+  .flow .tool-tag { margin-top: 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* ---------- Services ---------- */
+  .services-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .service { padding: 40px; }
+  .service .num { font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--gold); }
+  .service h3 { margin-top: 14px; font-size: clamp(26px, 3vw, 32px); }
+  .service .desc { margin-top: 12px; color: var(--text-2); font-size: 16px; max-width: 46ch; }
+  .service .ticks { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .note { color: var(--muted); font-size: 14.5px; }
+
+  /* ---------- Open source ---------- */
+  .oss {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center;
+    padding: 56px; border-radius: 24px;
+    background:
+      radial-gradient(60% 80% at 100% 0%, rgba(212, 168, 83, 0.09), transparent 60%),
+      linear-gradient(180deg, var(--panel), var(--bg-2));
+    border: 1px solid var(--line);
+  }
+  .oss h2 { font-size: clamp(30px, 4vw, 46px); }
+  .oss .intro { margin-top: 18px; color: var(--text-2); font-size: 17px; max-width: 52ch; }
+  .oss .intro strong { color: var(--text); font-weight: 600; }
+  .oss .btn-row { margin-top: 32px; }
+  .tree {
+    margin: 0; padding: 26px 28px; border-radius: 14px; overflow-x: auto;
+    background: #0b0b0d; border: 1px solid var(--line);
+    font-family: var(--mono); font-size: 13px; line-height: 1.9; color: var(--text-2); white-space: pre;
+  }
+  .tree .d { color: var(--text); }
+  .tree .t { color: #848075; }
+  .tree .c { color: var(--muted); }
+  .tree .gd { color: var(--gold-hi); }
+
+  /* ---------- Contact ---------- */
+  .contact { text-align: center; }
+  .contact .eyebrow { justify-content: center; }
+  .contact .eyebrow::after { content: ""; width: 36px; height: 1px; background: var(--gold); opacity: 0.7; }
+  .contact h2 { font-size: clamp(36px, 5.4vw, 64px); }
+  .contact .intro { margin: 18px auto 0; max-width: 54ch; color: var(--text-2); font-size: 17.5px; }
+  .email {
+    display: inline-flex; align-items: center; gap: 14px; margin-top: 40px; max-width: 100%;
+    padding: 18px 30px; border-radius: 999px; border: 1px solid var(--gold-lo); background: var(--gold-wash);
+    font-size: clamp(19px, 3vw, 28px); font-weight: 600; letter-spacing: -0.01em; color: var(--gold-hi);
+    overflow-wrap: anywhere; transition: border-color .2s, background-color .2s;
+  }
+  .email:hover { border-color: var(--gold); background: rgba(212, 168, 83, 0.16); }
+  .email svg { width: 22px; height: 22px; flex: none; }
+
+  /* ---------- Footer ---------- */
+  .site-footer { border-top: 1px solid var(--line); padding: 48px 0 40px; background: rgba(0, 0, 0, 0.18); }
+  .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 28px; }
+  .foot-top p { margin-top: 12px; color: var(--text-2); font-size: 14.5px; max-width: 40ch; }
+  .foot-nav ul { display: flex; flex-wrap: wrap; gap: 4px 22px; list-style: none; }
+  .foot-nav a { display: inline-flex; min-height: 36px; align-items: center; color: var(--text-2); font-size: 14px; }
+  .foot-nav a:hover { color: var(--text); }
+  .foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; }
+  .foot-bottom a { color: var(--text-2); }
+  .foot-bottom a:hover { color: var(--text); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .work-card:hover, .tool:hover, .service:hover { transform: translateY(-3px); }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1140px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .slate { display: none; }
+  }
+  @media (max-width: 1080px) {
+    .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .flow { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
+    .flow::before { content: none; }
+    .flow li:not(:last-child)::before { content: ""; position: absolute; left: 23px; top: 23px; bottom: -23px; width: 1px; background: var(--gold-lo); }
+    .flow li:nth-child(n+4):not(:last-child)::before { background: var(--gold); }
+    .flow li { display: grid; grid-template-columns: 46px minmax(0, 1fr); column-gap: 22px; align-items: start; padding: 0 0 34px; text-align: left; }
+    .flow li:last-child { padding-bottom: 0; }
+    .flow .node { grid-row: 1 / span 3; }
+    .flow h3 { grid-column: 2; margin-top: 11px; }
+    .flow p, .flow .tool-tag { grid-column: 2; }
+    .oss { grid-template-columns: minmax(0, 1fr); padding: 44px; gap: 36px; }
+  }
+  @media (max-width: 860px) {
+    :root { --gutter: 24px; }
+    .site-header { position: static; }
+    .section { scroll-margin-top: 0; }
+    .bar { flex-direction: column; align-items: stretch; gap: 0; padding-top: 14px; }
+    .nav { margin: 6px calc(var(--gutter) * -1) 0; overflow-x: auto; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav ul { padding: 0 calc(var(--gutter) - 12px) 8px; width: max-content; }
+    .tools-grid, .services-grid { grid-template-columns: minmax(0, 1fr); }
+    .section { padding: 84px 0; }
+  }
+  @media (max-width: 640px) {
+    :root { --gutter: 16px; --radius: 16px; }
+    body { font-size: 15.5px; }
+    .hero { padding: 24px 0 64px; }
+    .frame { padding: 64px 22px 56px; }
+    .hud.tl, .hud.tr { top: 14px; }
+    .hud.tl { left: 22px; }
+    .hud.tr { right: 22px; }
+    .hud.br { display: none; }
+    .hero .btn-row .btn { width: 100%; }
+    .work-grid { grid-template-columns: minmax(0, 1fr); }
+    .section { padding: 68px 0; }
+    .section-head { margin-bottom: 40px; }
+    .section-head .intro, .contact .intro { font-size: 16.5px; }
+    .tool, .service { padding: 28px 22px; }
+    .oss { padding: 30px 20px; border-radius: 18px; }
+    .tree { padding: 20px; font-size: 12px; }
+    .email { padding: 16px 22px; gap: 10px; }
+    .email svg { width: 18px; height: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="icons" aria-hidden="true" focusable="false">
+  <symbol id="i-ext" viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 16 16"><path d="M4.5 2.8v10.4L13 8z" fill="currentColor"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 26 26"><rect x="2" y="6" width="6.5" height="14" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="9.75" y="6" width="6.5" height="14" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="17.5" y="6" width="6.5" height="14" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5.25" cy="10.5" r="1.7" fill="currentColor"/><path d="M13 9.2v7.6M21 9.2v7.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-film" viewBox="0 0 26 26"><rect x="2.5" y="5" width="21" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M11 9.6v6.8l5.6-3.4z" fill="currentColor"/><path d="M2.5 8.5h3M2.5 17.5h3M20.5 8.5h3M20.5 17.5h3" stroke="currentColor" stroke-width="1.5"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Faizan Film Labs, back to top">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7" fill="#18181c" stroke="#2a2a31"/><rect x="6" y="9" width="6" height="14" rx="1.5" fill="#d4a853"/><rect x="13" y="9" width="6" height="14" rx="1.5" fill="#d4a853" opacity=".5"/><rect x="20" y="9" width="6" height="14" rx="1.5" fill="#d4a853"/></svg>
+      Faizan Film Labs
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#open-source">Open source</a></li>
+        <li><a class="nav-cta" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 1 · Hero -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="frame">
+        <span class="corner tl" aria-hidden="true"></span>
+        <span class="corner tr" aria-hidden="true"></span>
+        <span class="corner bl" aria-hidden="true"></span>
+        <span class="corner br" aria-hidden="true"></span>
+        <span class="hud tl" aria-hidden="true"><span class="rec"></span>Rec</span>
+        <span class="hud tr" aria-hidden="true">TC 00:00:00:00</span>
+        <span class="hud br" aria-hidden="true">16:9 · 9:16</span>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">AI filmmaking studio</p>
+            <h1 id="hero-title">Faizan <span class="g">Film Labs</span></h1>
+            <p class="tagline">AI films and realistic AI video, made with a repeatable workflow.</p>
+            <p class="lead">Cinematic concept films and AI persona ads, built stage by stage, from the first idea to the finished cut.</p>
+            <div class="btn-row">
+              <a class="btn btn-gold" href="tools/launch-film/"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>Watch the launch film</a>
+              <a class="btn btn-line" href="tools/character-sheet-builder/">Open the Character Sheet Builder<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <ul class="stack" aria-label="Tools used in the workflow">
+              <li>Claude / ChatGPT</li>
+              <li>Nano Banana Pro</li>
+              <li>Seedance 2.5</li>
+              <li>CapCut / After Effects</li>
+            </ul>
+          </div>
+
+          <div class="slate" aria-hidden="true">
+            <div class="clap top"></div>
+            <div class="clap"></div>
+            <div class="slate-body">
+              <div class="slate-row"><small>Production</small><b>Faizan Film Labs</b></div>
+              <div class="slate-row cols">
+                <div><small>Scene</small><b>01</b></div>
+                <div><small>Take</small><b>01</b></div>
+                <div><small>Roll</small><b>A</b></div>
+              </div>
+              <div class="slate-row"><small>Pipeline</small><b>Idea <span class="g">→</span> Finished</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Work -->
+  <section class="section" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Work</p>
+        <h2 id="work-title">Films made with the workflow</h2>
+        <p class="intro">Each of these was made with the same seven-stage process that is documented, prompt by prompt, in the open-source guide.</p>
+      </div>
+
+      <div class="work-grid">
+        <article class="card work-card">
+          <a class="poster p-bmw" href="https://www.youtube.com/watch?v=84tbDvXKknw" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+            <span class="word">M350</span>
+            <span class="road"></span>
+            <span class="streak"></span>
+            <span class="chip">Concept film</span>
+            <span class="play"><svg aria-hidden="true"><use href="#i-play"/></svg></span>
+            <span class="tc">16:9</span>
+          </a>
+          <div class="work-body">
+            <h3><a href="https://www.youtube.com/watch?v=84tbDvXKknw" target="_blank" rel="noopener noreferrer">BMW M350 xDrive<span class="sr"> (opens YouTube in a new tab)</span></a></h3>
+            <p class="kind">Cinematic concept film</p>
+            <p class="desc">Locked character sheets and location plates, generated in Seedance 2.5 and finished in After Effects.</p>
+            <p class="pipeline">Brief → script → character sheets → location plates → Seedance 2.5 → After Effects</p>
+            <div class="work-links">
+              <a class="tlink" href="https://www.youtube.com/watch?v=84tbDvXKknw" target="_blank" rel="noopener noreferrer">Watch on YouTube<span class="sr"> (opens in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card work-card">
+          <a class="poster p-tess" href="https://lnkd.in/p/dXEZhci9" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+            <span class="phone"></span>
+            <span class="chip">AI UGC ad</span>
+            <span class="play"><svg aria-hidden="true"><use href="#i-play"/></svg></span>
+            <span class="tc">9:16</span>
+          </a>
+          <div class="work-body">
+            <h3><a href="https://lnkd.in/p/dXEZhci9" target="_blank" rel="noopener noreferrer">Tess / LODE Protein<span class="sr"> (opens in a new tab)</span></a></h3>
+            <p class="kind">AI persona UGC ad</p>
+            <p class="desc">A realistic AI persona ad. Every prompt and reference image used to make it is published in the guide.</p>
+            <p class="pipeline">Character sheet → product reference → location plates → Seedance 2.5 block prompts → CapCut</p>
+            <div class="work-links">
+              <a class="tlink" href="https://lnkd.in/p/dXEZhci9" target="_blank" rel="noopener noreferrer">Watch the ad<span class="sr"> (opens in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+              <a class="tlink quiet" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/tree/main/examples/tess-lode-ugc" target="_blank" rel="noopener noreferrer">Prompts and assets<span class="sr"> (opens GitHub in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card work-card">
+          <a class="poster p-launch" href="tools/launch-film/" tabindex="-1" aria-hidden="true">
+            <span class="line"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="chip">Launch film</span>
+            <span class="play"><svg aria-hidden="true"><use href="#i-play"/></svg></span>
+            <span class="tc">00:30</span>
+          </a>
+          <div class="work-body">
+            <h3><a href="tools/launch-film/">The launch film</a></h3>
+            <p class="kind">30-second film</p>
+            <p class="desc">Why AI filmmaking looks complex, the seven stages that fix it, and real results made with them.</p>
+            <p class="pipeline">One HTML file · animation, particles and soundtrack generated live in your browser</p>
+            <div class="work-links">
+              <a class="tlink" href="tools/launch-film/">Play the film<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Tools -->
+  <section class="section" id="tools" aria-labelledby="tools-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Tools</p>
+        <h2 id="tools-title">Free tools from the workflow</h2>
+        <p class="intro">Both are single HTML files that run entirely in your browser. Nothing to install, no sign-up.</p>
+      </div>
+
+      <div class="tools-grid">
+        <article class="card tool">
+          <div class="tool-ico" aria-hidden="true"><svg><use href="#i-sheet"/></svg></div>
+          <h3>Character Sheet Builder</h3>
+          <p class="desc">Describe your character in a simple form and get the two Stage 3 prompts for Nano Banana Pro, ready to copy and paste.</p>
+          <ul class="ticks">
+            <li><strong>Portrait prompt (4:5).</strong> Generate this first and get the face right.</li>
+            <li><strong>Three-panel character sheet prompt (16:9).</strong> Chest-up portrait, full-length front view and full-length rear view.</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-gold" href="tools/character-sheet-builder/">Open the builder<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="tlink quiet" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/tree/main/tools/character-sheet-builder" target="_blank" rel="noopener noreferrer">View source<span class="sr"> (opens GitHub in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+          </div>
+        </article>
+
+        <article class="card tool">
+          <div class="tool-ico" aria-hidden="true"><svg><use href="#i-film"/></svg></div>
+          <h3>Launch Film</h3>
+          <p class="desc">A self-contained 30-second film. Every frame is rendered live with a Web Audio score, so replay, pause and seek stay in sync with the sound.</p>
+          <ul class="ticks">
+            <li><kbd>Space</kbd> pause or play, <kbd>R</kbd> replay, <kbd>M</kbd> mute.</li>
+            <li>If your browser blocks autoplay audio, tap once for sound.</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-gold" href="tools/launch-film/"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>Play the film</a>
+            <a class="tlink quiet" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/tree/main/tools/launch-film" target="_blank" rel="noopener noreferrer">View source<span class="sr"> (opens GitHub in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · The Workflow -->
+  <section class="section" id="workflow" aria-labelledby="workflow-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The workflow</p>
+        <h2 id="workflow-title">Seven stages, idea to finished film</h2>
+        <p class="intro">The same process every time, for cinematic shorts and AI persona content alike. Lock the character first, the location second, and describe only what a camera can see.</p>
+      </div>
+
+      <ol class="flow">
+        <li>
+          <span class="node" aria-hidden="true">01</span>
+          <h3>Idea</h3>
+          <p>Five plain-language questions: what happens, who, where, tone, and the feeling at the end.</p>
+          <span class="tool-tag">The brief</span>
+        </li>
+        <li>
+          <span class="node" aria-hidden="true">02</span>
+          <h3>Script</h3>
+          <p>Physical actions in [brackets] inline with dialogue, each segment under 8 seconds.</p>
+          <span class="tool-tag">Claude / ChatGPT</span>
+        </li>
+        <li>
+          <span class="node" aria-hidden="true">03</span>
+          <h3>Images</h3>
+          <p>Portrait, three-panel character sheet and location plate, generated in a fixed order.</p>
+          <span class="tool-tag">Nano Banana Pro</span>
+        </li>
+        <li>
+          <span class="node" aria-hidden="true">04</span>
+          <h3>Prompts</h3>
+          <p>Block prompts with byte-identical Style DNA, timestamps and @image references.</p>
+          <span class="tool-tag">Claude / ChatGPT</span>
+        </li>
+        <li>
+          <span class="node" aria-hidden="true">05</span>
+          <h3>Video</h3>
+          <p>Generated block by block at 1080p, carrying each last frame forward for continuity.</p>
+          <span class="tool-tag">Seedance 2.5</span>
+        </li>
+        <li>
+          <span class="node" aria-hidden="true">06</span>
+          <h3>Edit</h3>
+          <p>Trim artifacts, cut on action, grade, and lay music under the native audio.</p>
+          <span class="tool-tag">CapCut / After Effects</span>
+        </li>
+        <li>
+          <span class="node" aria-hidden="true">07</span>
+          <h3>Finished</h3>
+          <p>Exported at 1080p or higher: 16:9 for YouTube, 9:16 for vertical platforms.</p>
+          <span class="tool-tag">Delivered</span>
+        </li>
+      </ol>
+
+      <div class="section-foot">
+        <a class="btn btn-line" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/blob/main/GUIDE.md" target="_blank" rel="noopener noreferrer">Read the full guide<span class="sr"> (opens GitHub in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+        <a class="tlink" href="https://www.youtube.com/watch?v=bJXobsqN85w" target="_blank" rel="noopener noreferrer">Watch the live workflow breakdown<span class="sr"> (opens YouTube in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Services -->
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2 id="services-title">Work with the studio</h2>
+        <p class="intro">Two kinds of work, each scoped to the project. Get in touch with what you need.</p>
+      </div>
+
+      <div class="services-grid">
+        <article class="card service">
+          <p class="num">01</p>
+          <h3>AI filmmaking</h3>
+          <p class="desc">Realistic AI video made with the seven-stage workflow, from the brief to the final edit.</p>
+          <ul class="ticks">
+            <li>Cinematic concept and short films</li>
+            <li>AI persona and UGC-style ads</li>
+            <li>Script, character sheets and location plates</li>
+            <li>Video generation in Seedance 2.5, block by block</li>
+            <li>Edit, color grade and sound in CapCut or After Effects</li>
+            <li>Delivered in 16:9, 9:16 or both</li>
+          </ul>
+        </article>
+
+        <article class="card service">
+          <p class="num">02</p>
+          <h3>YouTube upload packages</h3>
+          <p class="desc">Everything that goes around a video when it goes live on YouTube.</p>
+          <ul class="ticks">
+            <li><strong>Thumbnails</strong> designed for the video and the channel</li>
+            <li><strong>SEO</strong> titles and tags written for search</li>
+            <li><strong>Descriptions</strong> that are clear, structured and ready to paste</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="section-foot">
+        <a class="btn btn-gold" href="#contact">Ask about a project<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <p class="note">Every project is quoted individually.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Open source -->
+  <section class="section" id="open-source" aria-labelledby="oss-title">
+    <div class="wrap">
+      <div class="oss">
+        <div>
+          <p class="eyebrow">Open source</p>
+          <h2 id="oss-title">The whole workflow is free</h2>
+          <p class="intro"><strong>Guide to Best AI Filmmaking</strong> is the production system behind these films: the full guide, fill-in templates, a complete worked example with every prompt, and the tools above. MIT licensed.</p>
+          <div class="btn-row">
+            <a class="btn btn-gold" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking" target="_blank" rel="noopener noreferrer"><svg class="ico" aria-hidden="true"><use href="#i-gh"/></svg>View on GitHub<span class="sr"> (opens in a new tab)</span></a>
+            <a class="btn btn-line" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/blob/main/GUIDE.md" target="_blank" rel="noopener noreferrer">Read GUIDE.md<span class="sr"> (opens GitHub in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
+          </div>
+        </div>
+<pre class="tree" role="img" aria-label="Repository contents: GUIDE.md, templates, examples/tess-lode-ugc, and tools/character-sheet-builder and tools/launch-film"><span class="gd">guide-to-best-ai-filmmaking/</span>
+<span class="t">├──</span> <span class="d">GUIDE.md</span>          <span class="c">full workflow</span>
+<span class="t">├──</span> <span class="d">templates/</span>        <span class="c">briefs and prompts</span>
+<span class="t">├──</span> <span class="d">examples/</span>
+<span class="t">│   └──</span> <span class="d">tess-lode-ugc/</span> <span class="c">every prompt</span>
+<span class="t">└──</span> <span class="d">tools/</span>
+<span class="t">    ├──</span> <span class="d">character-sheet-builder/</span>
+<span class="t">    └──</span> <span class="d">launch-film/</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Contact -->
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title">Start a project</h2>
+      <p class="intro">Send the idea, the format (16:9, 9:16 or both) and your timeline.</p>
+      <!-- [ADD-EMAIL]: replace both occurrences on the next line with your email address. -->
+      <a class="email" href="mailto:[ADD-EMAIL]"><svg aria-hidden="true"><use href="#i-mail"/></svg>[ADD-EMAIL]</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- 8 · Footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="#top">
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7" fill="#18181c" stroke="#2a2a31"/><rect x="6" y="9" width="6" height="14" rx="1.5" fill="#d4a853"/><rect x="13" y="9" width="6" height="14" rx="1.5" fill="#d4a853" opacity=".5"/><rect x="20" y="9" width="6" height="14" rx="1.5" fill="#d4a853"/></svg>
+          Faizan Film Labs
+        </a>
+        <p>AI films and realistic AI video, made with a repeatable workflow.</p>
+      </div>
+      <nav class="foot-nav" aria-label="Footer">
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#workflow">Workflow</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking">GitHub</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <p>© <span id="year">2026</span> Faizan Film Labs</p>
+      <p>The workflow guide is open source under the <a href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/blob/main/LICENSE">MIT License</a>.</p>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
