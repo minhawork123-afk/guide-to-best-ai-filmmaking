@@ -1,4 +1,3 @@
-[persona-brief-template.md](https://github.com/user-attachments/files/32432720/persona-brief-template.md)
 # AI Persona / UGC Content Brief Template
 ### Paste this into Claude or ChatGPT to begin your production
 

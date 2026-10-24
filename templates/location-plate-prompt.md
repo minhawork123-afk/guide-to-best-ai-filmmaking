@@ -1,4 +1,3 @@
-[location-plate-prompt.md](https://github.com/user-attachments/files/32432800/location-plate-prompt.md)
 # Location Plate Prompt Template
 ### For Nano Banana Pro — generates the @Image3 environment reference for Seedance 2.5
 

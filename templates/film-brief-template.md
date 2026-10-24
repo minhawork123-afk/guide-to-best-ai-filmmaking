@@ -1,4 +1,3 @@
-[film-brief-template.md](https://github.com/user-attachments/files/32432794/film-brief-template.md)
 # Cinematic Film Brief Template
 ### Paste this into Claude or ChatGPT to begin your production
 

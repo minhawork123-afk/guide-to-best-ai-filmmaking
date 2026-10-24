@@ -1,24 +1,28 @@
 # Guide to Best AI Filmmaking
 ### Realistic AI Video — Cinematic Films & AI Personas
 
-> A complete, production-tested workflow for creating realistic AI video.
-> From idea to finished film — using Seedance 2.5, Nano Banana Pro, and Claude / ChatGPT.
+> The seven-stage workflow behind the BMW M350 concept film and the Tess / LODE UGC ad.
+> Claude / ChatGPT writes the prompts, Nano Banana Pro locks the character and the location, Seedance 2.5 generates the video in 12–20 second blocks, and CapCut or After Effects finishes it.
 
 ---
 
 ## What This Is
 
-This is not a list of prompts. It is a **full production system** — the same workflow used to make the films below, documented so anyone can replicate it.
+Realistic AI video usually breaks in three places, and this workflow is built to stop each one:
 
-It covers two content types that use the same pipeline:
-- **Cinematic short films** — narrative, atmospheric, character-driven
-- **AI persona / UGC content** — realistic influencer and product review videos
+- **The face changes between shots.** A three-panel character sheet with a deliberately headless centre panel leaves Seedance exactly one face to lock onto.
+- **The location changes between shots.** An empty location plate is generated before any video, so the model only has to handle the performance.
+- **It looks like a 3D render.** Every prompt names a real camera, lens, light source and colour grade instead of words like "cinematic", and one Style DNA paragraph is pasted byte-identical into every block.
+
+The same pipeline covers two kinds of video:
+- **Cinematic short films**: narrative, atmospheric, character-driven
+- **AI persona / UGC ads**: a realistic creator reviewing a product to camera
 
 ---
 
 ## Launch Film
 
-A 30-second film about this system: why AI filmmaking looks so complex, the 7-stage workflow that fixes it, and real results made with it.
+30 seconds: the wall of prompts and failed renders most people start with, the seven stages, the three tools, frames from the BMW and Tess films, and the Character Sheet Builder in use.
 
 ▶️ [Watch the launch film](https://minhawork123-afk.github.io/guide-to-best-ai-filmmaking/tools/launch-film/)
 
@@ -35,7 +39,7 @@ Full pipeline: character sheet → product reference → location plates → See
 
 ▶️ [Watch the finished video](https://lnkd.in/p/dXEZhci9)
 
-All assets and prompts for this film are in [`/examples/tess-lode-ugc/`](./examples/tess-lode-ugc/)
+The seven reference images and both Seedance block prompts for this film are in [`/examples/tess-lode-ugc/`](./examples/tess-lode-ugc/)
 
 ---
 
@@ -114,16 +118,13 @@ guide-to-best-ai-filmmaking/
 │
 ├── README.md                        ← you are here
 ├── GUIDE.md                         ← full workflow documentation
+├── index.html                       ← Faizan Film Labs website (GitHub Pages)
 │
 ├── examples/
 │   └── tess-lode-ugc/
 │       ├── README.md                ← breakdown of this specific film
 │       ├── prompts-seedance.md      ← full Seedance 2.5 block prompts A + B
-│       ├── prompt-character.md      ← Tess character sheet prompt
-│       ├── prompt-product.md        ← LODE product reference prompt
-│       ├── prompt-location-kitchen.md
-│       ├── prompt-location-gym.md
-│       └── assets/                  ← character sheet, location plates
+│       └── assets/                  ← character sheet, product reference, location plates
 │
 ├── tools/
 │   ├── character-sheet-builder/
@@ -181,8 +182,7 @@ If you use this workflow and make something you're proud of, open a pull request
 - Your reference image prompts
 - Your Seedance block prompts
 - A one-line description of what you made
-
-The more real examples this repo has, the more useful it becomes for everyone.
+- Optional, and the most useful part: a block that failed and the prompt change that fixed it
 
 ---
 
@@ -192,5 +192,5 @@ MIT — use freely, credit appreciated.
 
 ---
 
-*Made by Fazi — AI filmmaker and multi-language YouTube creator.*
-*[YouTube](https://www.youtube.com/watch?v=bJXobsqN85w)*
+*Made by Fazi, AI filmmaker and multi-language YouTube creator, at [Faizan Film Labs](https://www.faizanfilmlabs.online/).*
+*[Watch the live workflow breakdown on YouTube](https://www.youtube.com/watch?v=bJXobsqN85w)*

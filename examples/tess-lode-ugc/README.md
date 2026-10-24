@@ -1,12 +1,12 @@
 # Example: Tess / LODE Protein — AI UGC Ad
-### Complete production package — all assets and prompts included
+### The reference images and Seedance block prompts behind a 30-second UGC ad
 
 ---
 
 ## The Film
 
-A 30-second AI-generated UGC-style product review video for a fictional protein powder brand (LODE).
-Persona: Tess, 28, fitness creator. Tone: low energy, dry, genuine — not influencer-polished.
+A 30-second, phone-shot product review for a fictional protein powder brand (LODE).
+Persona: Tess, 28, fitness creator. Tone: low energy, dry, underselling. Not influencer-polished.
 
 ▶️ [Watch the finished video](https://lnkd.in/p/dXEZhci9)
 
@@ -16,43 +16,43 @@ Persona: Tess, 28, fitness creator. Tone: low energy, dry, genuine — not influ
 
 ### Character Sheet — Tess (Three-Panel)
 
-![Tess Character Sheet](https://raw.githubusercontent.com/minhawork123-afk/guide-best-ai-filmmaking/main/examples/tess-lode-ugc/assets/Photorealistic_three-panel_character_reference_she-1789888491901.jpg)
+![Tess Character Sheet](assets/Photorealistic_three-panel_character_reference_she-1789888491901.jpg)
 
 ---
 
 ### Character Sheet — Centre Panel (Headless — deliberate)
 
-![Tess Centre Panel](https://raw.githubusercontent.com/minhawork123-afk/guide-best-ai-filmmaking/main/examples/tess-lode-ugc/assets/Photorealistic_character_reference_sheet_centre_p-1789888495417.jpg)
+![Tess Centre Panel](assets/Photorealistic_character_reference_sheet_centre_p-1789888495417.jpg)
 
 ---
 
 ### Character Sheet — Right Panel (Rear View)
 
-![Tess Rear Panel](https://raw.githubusercontent.com/minhawork123-afk/guide-best-ai-filmmaking/main/examples/tess-lode-ugc/assets/Photorealistic_character_reference_sheet_right_pa-1789888499920.jpg)
+![Tess Rear Panel](assets/Photorealistic_character_reference_sheet_right_pa-1789888499920.jpg)
 
 ---
 
 ### Product Reference — LODE Protein Tub + Shaker
 
-![LODE Product Reference](https://raw.githubusercontent.com/minhawork123-afk/guide-best-ai-filmmaking/main/examples/tess-lode-ugc/assets/Photorealistic_product_reference_sheet_Panel_1_-1789888505944.jpg)
+![LODE Product Reference](assets/Photorealistic_product_reference_sheet_Panel_1_-1789888505944.jpg)
 
 ---
 
 ### Location Plate — Apartment Kitchen (Pre-Dawn)
 
-![Apartment Kitchen](https://raw.githubusercontent.com/minhawork123-afk/guide-best-ai-filmmaking/main/examples/tess-lode-ugc/assets/Real_phone_photo_of_an_empty_small_rented_apartmen-1789888519007.jpg)
+![Apartment Kitchen](assets/Real_phone_photo_of_an_empty_small_rented_apartmen-1789888519007.jpg)
 
 ---
 
 ### Location Plate A — Gym Wide (Establishing Shot)
 
-![Gym Wide](https://raw.githubusercontent.com/minhawork123-afk/guide-best-ai-filmmaking/main/examples/tess-lode-ugc/assets/PLATE_A_wide_establishing_shot_of_a_large_modern-1789888484958.jpg)
+![Gym Wide](assets/PLATE_A_wide_establishing_shot_of_a_large_modern-1789888484958.jpg)
 
 ---
 
 ### Location Plate B — Gym Filming Bay
 
-![Gym Filming Bay](https://raw.githubusercontent.com/minhawork123-afk/guide-best-ai-filmmaking/main/examples/tess-lode-ugc/assets/PLATE_B_the_filming_bay_A_corner_bay_of_the_sam-1789888424774.jpg)
+![Gym Filming Bay](assets/PLATE_B_the_filming_bay_A_corner_bay_of_the_sam-1789888424774.jpg)
 
 ---
 
@@ -81,7 +81,7 @@ IMAGES        Tess three-panel sheet (Nano Banana Pro, from description)
               Gym wide establishing plate
               Gym filming bay plate (hard diagonal window light)
 
-VIDEO         Seedance 2.5, omni_reference, 9:16, 1080p, 30s per block
+VIDEO         Seedance 2.5, omni_reference, 9:16, 1080p, two 15s blocks
               Block A: 0:00–0:15
               Block B: 0:15–0:30
 
@@ -107,9 +107,11 @@ doing real work as a key light.
 
 **Product reference as @Image2.** The LODE tub and shaker get their own reference image
 so Seedance can match the product exactly in close-up shots without reinventing it.
+With one character, one product and three plates, this film uses five @Image slots
+instead of the guide's default four. The order is listed at the top of the prompts file.
 
 ---
 
 ## Prompts
 
-See [prompts-seedance.md](./prompts-seedance.md) for the full production-ready Block A + B prompts.
+See [prompts-seedance.md](./prompts-seedance.md) for Block A (0:00–0:15) and Block B (0:15–0:30), in full.

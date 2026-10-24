@@ -1,4 +1,3 @@
-[seedance-block-template.md](https://github.com/user-attachments/files/32432816/seedance-block-template.md)
 # Seedance 2.5 Block Prompt Template
 ### OpenArt · omni_reference mode · one block per 12–20 seconds of footage
 
