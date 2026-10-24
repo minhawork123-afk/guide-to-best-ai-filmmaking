@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Faizan Film Labs — AI Filmmaking Studio</title>
-<meta name="description" content="Faizan Film Labs is an AI filmmaking studio. AI films and realistic AI video, made with a repeatable seven-stage workflow, plus free tools and an open-source guide.">
+<meta name="description" content="Faizan Film Labs makes realistic AI films and UGC ads with a seven-stage workflow: locked character sheets, empty location plates and Seedance 2.5 block prompts. The guide and tools are open source.">
 <meta name="theme-color" content="#0f0f11">
 <link rel="canonical" href="https://www.faizanfilmlabs.online/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Faizan Film Labs">
 <meta property="og:title" content="Faizan Film Labs — AI Filmmaking Studio">
-<meta property="og:description" content="AI films and realistic AI video, made with a repeatable workflow.">
+<meta property="og:description" content="Realistic AI films and UGC ads, built from locked character sheets, location plates and Seedance 2.5 block prompts.">
 <meta property="og:url" content="https://www.faizanfilmlabs.online/">
 <!-- [ADD] Share image: upload a 1200×630 image to the repo, then uncomment and set its full URL.
 <meta property="og:image" content="https://www.faizanfilmlabs.online/[ADD].jpg">
@@ -551,8 +551,8 @@
           <div class="hero-copy">
             <p class="eyebrow">AI filmmaking studio</p>
             <h1 id="hero-title">Faizan <span class="g">Film Labs</span></h1>
-            <p class="tagline">AI films and realistic AI video, made with a repeatable workflow.</p>
-            <p class="lead">Cinematic concept films and AI persona ads, built stage by stage, from the first idea to the finished cut.</p>
+            <p class="tagline">Realistic AI video that keeps the same face and the same location from the first shot to the last.</p>
+            <p class="lead">Concept films and AI persona ads, made by locking the character and the location as reference images before a single frame of video is generated.</p>
             <div class="btn-row">
               <a class="btn btn-gold" href="tools/launch-film/"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>Watch the launch film</a>
               <a class="btn btn-line" href="tools/character-sheet-builder/">Open the Character Sheet Builder<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -589,7 +589,7 @@
       <div class="section-head">
         <p class="eyebrow">Work</p>
         <h2 id="work-title">Films made with the workflow</h2>
-        <p class="intro">Each of these was made with the same seven-stage process that is documented, prompt by prompt, in the open-source guide.</p>
+        <p class="intro">The BMW film and the Tess ad went through the same seven stages. The Tess ad&rsquo;s reference images and Seedance block prompts are published in full in the repo.</p>
       </div>
 
       <div class="work-grid">
@@ -623,7 +623,7 @@
           <div class="work-body">
             <h3><a href="https://lnkd.in/p/dXEZhci9" target="_blank" rel="noopener noreferrer">Tess / LODE Protein<span class="sr"> (opens in a new tab)</span></a></h3>
             <p class="kind">AI persona UGC ad</p>
-            <p class="desc">A realistic AI persona ad. Every prompt and reference image used to make it is published in the guide.</p>
+            <p class="desc">A 30-second, phone-shot protein ad, built from a written description rather than a real person&rsquo;s photos. Its seven reference images and both block prompts are in the repo.</p>
             <p class="pipeline">Character sheet → product reference → location plates → Seedance 2.5 block prompts → CapCut</p>
             <div class="work-links">
               <a class="tlink" href="https://lnkd.in/p/dXEZhci9" target="_blank" rel="noopener noreferrer">Watch the ad<span class="sr"> (opens in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
@@ -642,7 +642,7 @@
           <div class="work-body">
             <h3><a href="tools/launch-film/">The launch film</a></h3>
             <p class="kind">30-second film</p>
-            <p class="desc">Why AI filmmaking looks complex, the seven stages that fix it, and real results made with them.</p>
+            <p class="desc">The wall of prompts and failed renders most people start with, then the seven stages, the three tools and frames from the BMW and Tess films.</p>
             <p class="pipeline">One HTML file · animation, particles and soundtrack generated live in your browser</p>
             <div class="work-links">
               <a class="tlink" href="tools/launch-film/">Play the film<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -669,7 +669,7 @@
           <p class="desc">Describe your character in a simple form and get the two Stage 3 prompts for Nano Banana Pro, ready to copy and paste.</p>
           <ul class="ticks">
             <li><strong>Portrait prompt (4:5).</strong> Generate this first and get the face right.</li>
-            <li><strong>Three-panel character sheet prompt (16:9).</strong> Chest-up portrait, full-length front view and full-length rear view.</li>
+            <li><strong>Three-panel character sheet prompt (16:9).</strong> Chest-up portrait, a deliberately headless full-length front view, and a rear view with the head visible.</li>
           </ul>
           <div class="btn-row">
             <a class="btn btn-gold" href="tools/character-sheet-builder/">Open the builder<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -718,33 +718,33 @@
         </li>
         <li>
           <span class="node" aria-hidden="true">03</span>
-          <h3>Images</h3>
-          <p>Portrait, three-panel character sheet and location plate, generated in a fixed order.</p>
-          <span class="tool-tag">Nano Banana Pro</span>
-        </li>
-        <li>
-          <span class="node" aria-hidden="true">04</span>
-          <h3>Prompts</h3>
-          <p>Block prompts with byte-identical Style DNA, timestamps and @image references.</p>
+          <h3>Image prompts</h3>
+          <p>Portrait, three-panel sheet with a headless centre panel, and an empty location plate.</p>
           <span class="tool-tag">Claude / ChatGPT</span>
         </li>
         <li>
+          <span class="node" aria-hidden="true">04</span>
+          <h3>Images</h3>
+          <p>Portrait, sheet, skin realism pass, then location, each saved to a fixed @Image slot.</p>
+          <span class="tool-tag">Nano Banana Pro</span>
+        </li>
+        <li>
           <span class="node" aria-hidden="true">05</span>
-          <h3>Video</h3>
-          <p>Generated block by block at 1080p, carrying each last frame forward for continuity.</p>
-          <span class="tool-tag">Seedance 2.5</span>
+          <h3>Block prompts</h3>
+          <p>12&ndash;20 second blocks of timestamped shots, camera first, with byte-identical Style DNA.</p>
+          <span class="tool-tag">Claude / ChatGPT</span>
         </li>
         <li>
           <span class="node" aria-hidden="true">06</span>
-          <h3>Edit</h3>
-          <p>Trim artifacts, cut on action, grade, and lay music under the native audio.</p>
-          <span class="tool-tag">CapCut / After Effects</span>
+          <h3>Video</h3>
+          <p>Generated block by block at 1080p with native audio, each last frame carried into the next block.</p>
+          <span class="tool-tag">Seedance 2.5</span>
         </li>
         <li>
           <span class="node" aria-hidden="true">07</span>
-          <h3>Finished</h3>
-          <p>Exported at 1080p or higher: 16:9 for YouTube, 9:16 for vertical platforms.</p>
-          <span class="tool-tag">Delivered</span>
+          <h3>Edit</h3>
+          <p>Trim artifacts, cut on action, grade, and export: 16:9 for YouTube, 9:16 for vertical.</p>
+          <span class="tool-tag">CapCut / After Effects</span>
         </li>
       </ol>
 
@@ -761,14 +761,14 @@
       <div class="section-head">
         <p class="eyebrow">Services</p>
         <h2 id="services-title">Work with the studio</h2>
-        <p class="intro">Two kinds of work, each scoped to the project. Get in touch with what you need.</p>
+        <p class="intro">Films like the ones above, made for your project, and the YouTube packaging that goes around a finished video.</p>
       </div>
 
       <div class="services-grid">
         <article class="card service">
           <p class="num">01</p>
           <h3>AI filmmaking</h3>
-          <p class="desc">Realistic AI video made with the seven-stage workflow, from the brief to the final edit.</p>
+          <p class="desc">The same seven stages as the guide, run for your project, from the brief to the final edit.</p>
           <ul class="ticks">
             <li>Cinematic concept and short films</li>
             <li>AI persona and UGC-style ads</li>
@@ -805,7 +805,7 @@
         <div>
           <p class="eyebrow">Open source</p>
           <h2 id="oss-title">The whole workflow is free</h2>
-          <p class="intro"><strong>Guide to Best AI Filmmaking</strong> is the production system behind these films: the full guide, fill-in templates, a complete worked example with every prompt, and the tools above. MIT licensed.</p>
+          <p class="intro"><strong>Guide to Best AI Filmmaking</strong> is the production system behind these films: the full guide, five fill-in templates, the Tess ad as a worked example with its reference images and block prompts, and the tools above. MIT licensed.</p>
           <div class="btn-row">
             <a class="btn btn-gold" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking" target="_blank" rel="noopener noreferrer"><svg class="ico" aria-hidden="true"><use href="#i-gh"/></svg>View on GitHub<span class="sr"> (opens in a new tab)</span></a>
             <a class="btn btn-line" href="https://github.com/minhawork123-afk/guide-to-best-ai-filmmaking/blob/main/GUIDE.md" target="_blank" rel="noopener noreferrer">Read GUIDE.md<span class="sr"> (opens GitHub in a new tab)</span><svg class="ico" aria-hidden="true"><use href="#i-ext"/></svg></a>
@@ -815,7 +815,7 @@
 <span class="t">├──</span> <span class="d">GUIDE.md</span>          <span class="c">full workflow</span>
 <span class="t">├──</span> <span class="d">templates/</span>        <span class="c">briefs and prompts</span>
 <span class="t">├──</span> <span class="d">examples/</span>
-<span class="t">│   └──</span> <span class="d">tess-lode-ugc/</span> <span class="c">every prompt</span>
+<span class="t">│   └──</span> <span class="d">tess-lode-ugc/</span> <span class="c">prompts + images</span>
 <span class="t">└──</span> <span class="d">tools/</span>
 <span class="t">    ├──</span> <span class="d">character-sheet-builder/</span>
 <span class="t">    └──</span> <span class="d">launch-film/</span></pre>
@@ -844,7 +844,7 @@
           <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7" fill="#18181c" stroke="#2a2a31"/><rect x="6" y="9" width="6" height="14" rx="1.5" fill="#d4a853"/><rect x="13" y="9" width="6" height="14" rx="1.5" fill="#d4a853" opacity=".5"/><rect x="20" y="9" width="6" height="14" rx="1.5" fill="#d4a853"/></svg>
           Faizan Film Labs
         </a>
-        <p>AI films and realistic AI video, made with a repeatable workflow.</p>
+        <p>Realistic AI films and UGC ads, made with the seven-stage workflow from the open-source guide.</p>
       </div>
       <nav class="foot-nav" aria-label="Footer">
         <ul>

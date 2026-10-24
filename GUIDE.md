@@ -1,4 +1,3 @@
-[GUIDE.md](https://github.com/user-attachments/files/32432827/GUIDE.md)
 # GUIDE TO BEST AI FILMMAKING
 ### Realistic AI Video — Cinematic Films & AI Personas
 **Tools: Claude / ChatGPT → Nano Banana Pro → Seedance 2.5 → CapCut / After Effects**
@@ -81,7 +80,7 @@ CRITICAL IDENTITY LOCK: @Image1, @Image2, @Image3, and @Image4 are all photos
 of the exact same real person. This is not a composite or blended face. They must 
 be immediately, unmistakably recognizable as the specific individual shown — with 
 their exact face shape, exact eye shape and color, exact nose, exact lips, exact 
-eybone shape, exact jawline, exact skin tone, and exact hair color, texture, and 
+eyebrow shape, exact jawline, exact skin tone, and exact hair color, texture, and 
 length as shown. Do not average, generalize, beautify, or drift toward a generic 
 model-like face. If any single reference is clearer than the others, prioritize 
 matching that one exactly rather than blending all four into something new.

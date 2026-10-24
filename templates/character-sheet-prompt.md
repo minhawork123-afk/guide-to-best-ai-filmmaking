@@ -1,4 +1,3 @@
-[character-sheet-prompt.md](https://github.com/user-attachments/files/32432751/character-sheet-prompt.md)
 # Character Sheet Prompt Template
 ### For Nano Banana Pro — generates the @Image1 reference for Seedance 2.5
 

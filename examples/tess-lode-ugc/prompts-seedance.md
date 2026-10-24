@@ -1,16 +1,29 @@
-Seedance 2.5 Block Prompts — Tess / LODE UGC Ad
-OpenArt · omni_reference · 9:16 · 1080p · Standard · Native audio ON
+# Seedance 2.5 Block Prompts — Tess / LODE UGC Ad
+
+**OpenArt · omni_reference · 9:16 · 1080p · Standard bitrate · Native audio ON**
+
+Two 15-second blocks that cut together into the 30-second ad. Copy each block exactly as written, with the images uploaded in the order below.
+
 ---
-@Image Upload Order
-Slot	Image
-@Image1	Tess — three-panel character sheet
-@Image2	LODE product — matte black tub + smoke-grey shaker
-@Image3	Gym wide establishing plate
-@Image4	Gym filming bay plate
-@Image5	Apartment kitchen plate
+
+## @Image Upload Order
+
+| Slot | Image |
+|---|---|
+| @Image1 | Tess — three-panel character sheet |
+| @Image2 | LODE product — matte black tub + smoke-grey shaker |
+| @Image3 | Gym wide establishing plate |
+| @Image4 | Gym filming bay plate |
+| @Image5 | Apartment kitchen plate |
+
 > Upload order is fixed. Never change it across generations.
+>
+> This film has one character, one product and three locations, so it uses five slots instead of the guide's default four. Block B only references @Image1, @Image2 and @Image4.
+
 ---
-BLOCK A · 0:00–0:15
+
+## Block A · 0:00–0:15
+
 ```
 @Image1 — character sheet, TESS. Three panels: take the face from the LEFT chest-up
 portrait panel. The centre panel omits the head deliberately. Tess has a head and face
@@ -81,7 +94,9 @@ overlapping with action. No enthusiasm. No mirror posing, no body-checking, no p
 framing, no sexualised angles. No real-world brand logos. No other people. No watermark.
 ```
 ---
-BLOCK B · 0:15–0:30
+
+## Block B · 0:15–0:30
+
 ```
 Same settings. This is the second half of a single continuous commercial — match
 Block A's look, voice and grade exactly.
